@@ -1,0 +1,5 @@
+apps:
+  # shorthand: heroku app
+  production: nodewise
+  staging: nodewise-staging
+  demo: nodewise-demo
