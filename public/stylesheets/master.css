@@ -1,0 +1,10 @@
+#header_container {
+  background: url(http://laterlist.com/images/header_bg.png) repeat-x;
+  height: 46px;
+  margin-bottom: 50px;
+}
+#header_container h2 {
+  color: white;
+  float: left;
+  padding-top: 10px;
+}
