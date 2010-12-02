@@ -1,11 +1,4 @@
-#header_container {
-  background: url(/images/header_bg.png) repeat-x;
-  height: 46px;
-  margin-bottom: 50px;
-}
-#header_container h2 {
-  color: white;
-  float: left;
-  padding-top: 10px;
-  text-shadow:1px 1px 2px #939EAD;
-}
+#header_container { background: url(/images/header_bg.png) repeat-x; height: 46px; margin-bottom: 50px; }
+#header_container h2 { color: white; float: left; padding-top: 10px; font-size: 28px; font-weight: bold; text-shadow:1px 1px 2px #939EAD; font-family: 'Geo', arial, serif; }
+#header_container h2 a { color: white; text-decoration: none; }
+footer { margin: 25px auto; text-align: center; width: 800px; color: #777; }
