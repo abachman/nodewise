@@ -64,7 +64,10 @@ You'll need ruby, at least 1.8.7. I'd also highly recommend [rvm](rvm.beginrescu
 Once you've downloaded the source, run `bundle install` and `cp
 config/database.local.yml config/database.yml`.
 
-Once those are finished, you should be able to run the tests and a local server.
+Once those are setup and ready to go, you should be able to run the tests and a local server.
+
+If you want to deploy to the Node's servers (Heroku: demo, staging, production),
+contact me to be added to the heroku projects as a collaborator.
 
 ### License
 
