@@ -1,0 +1,16 @@
+<div id="header_container" class="box_shadow box_gradient">
+  <div class='container'>
+    <header class='span-24 last'>
+      <h2><%= link_to "nodewise", root_url %></h2> 
+      <nav>
+        <ul class="main_nav">
+          <% if user_signed_in? %>
+            <li><%= link_to "Sign out", destroy_user_session_path %></li>
+          <% else %>
+            <li><%= link_to "Sign in", new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+  </div>
+</div>

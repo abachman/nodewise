@@ -28,8 +28,6 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    acts-as-taggable-on (2.0.6)
-    acts_as_tree (0.1.1)
     arel (2.0.6)
     bcrypt-ruby (2.1.2)
     builder (2.1.2)
@@ -165,8 +163,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on
-  acts_as_tree
   cancan
   capybara
   cucumber
@@ -179,6 +175,7 @@ DEPENDENCIES
   heroku
   heroku_san
   hpricot
+  i18n
   json
   launchy
   pg

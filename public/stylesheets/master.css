@@ -1,4 +1,69 @@
-#header_container { background: url(/images/header_bg.png) repeat-x; height: 46px; margin-bottom: 50px; }
-#header_container h2 { color: white; float: left; padding-top: 10px; font-size: 28px; font-weight: bold; text-shadow:1px 1px 2px #939EAD; font-family: 'Geo', arial, serif; }
-#header_container h2 a { color: white; text-decoration: none; }
+#header_container { height: 46px; margin-bottom: 50px; }
+#header_container h2 { color: #fff; 
+  float: left;
+  padding-top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow:1px 1px 2px #939EAD;
+  font-family: 'Geo', arial, serif;
+}
+#header_container h2 a { color: #eee; text-decoration: none; }
 footer { margin: 25px auto; text-align: center; width: 800px; color: #777; }
+/**
+ * http://css3please.com/
+ **/
+.box { border: 1px solid #b4b4c9; }
+.box_round {
+  -moz-border-radius: 8px; /* FF1+ */
+  -webkit-border-radius: 8px; /* Saf3-4 */
+  border-radius: 8px; /* Opera 10.5, IE 9, Saf5, Chrome */
+}
+.box_shadow {
+  -moz-box-shadow: 0px 0px 8px #ccc; /* FF3.5+ */
+  -webkit-box-shadow: 0px 0px 8px #ccc; /* Saf3.0+, Chrome */
+  box-shadow: 0px 0px 8px #ccc; /* Opera 10.5, IE 9 */
+}
+.box_gradient {
+  background-color: #eee;
+  background-image: -moz-linear-gradient(top, #eee, #aaa); /* FF3.6 */
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eee),color-stop(1, #aaa)); /* Saf4+, Chrome */
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#aaa'); /* IE6,IE7 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#aaa)"; /* IE8 */
+}
+
+nav { 
+  height: 45px;
+  float: right;
+}
+nav ul.main_nav {
+  height: 45px;
+}
+nav ul.main_nav li {
+  display: block;
+  float: left;
+  position: relative;
+}
+nav a {
+  color: #000;
+  display: block;
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 10px;
+  text-shadow: 0 1px 3px #e5ecf9;
+  text-decoration: none;
+}
+nav a:hover, nav a.selected {
+  color: #333;
+}
+nav a.user span {
+  background: url(../images/dropdown_arrow.png) no-repeat right center;
+  font-size: 12px;
+  padding-right: 15px;
+}
+nav a.user img {
+  margin-right: 5px;
+  vertical-align: middle;
+}

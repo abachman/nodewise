@@ -1,18 +1,16 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
+gem 'dynamic_form'
 gem 'pg'
 gem 'json'
 gem 'devise'
-gem 'dynamic_form'
 gem 'cancan'
 gem 'will_paginate'
-gem 'texticle'
-gem 'rdiscount'
+gem 'texticle' # text search
+gem 'rdiscount' # markdown
 gem 'dalli' # memcache
-
-gem 'acts_as_tree'
-gem 'acts-as-taggable-on'
+gem 'i18n'
 
 # To use debugger
 group :development do
