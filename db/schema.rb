@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101215163149) do
+ActiveRecord::Schema.define(:version => 20101215212728) do
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.string   "status",           :null => false
+    t.decimal  "monthly_fee",      :null => false
+    t.datetime "next_payment_due", :null => false
+    t.datetime "member_since",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",    :null => false
@@ -35,7 +47,8 @@ ActiveRecord::Schema.define(:version => 20101215163149) do
     t.text     "bio"
     t.text     "rendered_bio"
     t.text     "links"
-    t.string   "name"
+    t.string   "full_name"
+    t.string   "status"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

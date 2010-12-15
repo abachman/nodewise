@@ -2,11 +2,12 @@
 
 <h2>Voting History</h2>
 
-<h2>My Information</h2>
+<h2>Your Information</h2>
+<p><%= link_to "Edit your settings", edit_user_registration_path(current_user) %></p>
 
 <table>
   <tr>
     <td>Name:</td>
-    <td><%= current_user.name %></td>
+    <td><%= current_user.full_name %></td>
   </tr>
 </table>

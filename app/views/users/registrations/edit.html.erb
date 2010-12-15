@@ -6,6 +6,20 @@
   <p><%= f.label :email %><br />
   <%= f.text_field :email %></p>
 
+  <p><%= f.label :full_name %><br />
+  <%= f.text_field :full_name %></p>
+
+  <p><%= f.label :bio %> <i>(this field will be rendered with <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">markdown</a>)</i><br />
+  <%= f.text_area :bio %></p>
+
+  <p><%= f.label :links %><br />
+  <ol id='user_links'>
+    <% f.object.links.each_with_index do |link, count| %>
+      <li><input type='text' class="user_link" type='text' name='user[links][]' value="<%= link %>" /> <a href="javascript:void(0)" onclick="removeLink(this)">x</a></li>
+    <% end %>
+  </ol>
+  <a href="javascript:addLink()">add link</a>
+
   <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
   <%= f.password_field :password %></p>
 
@@ -23,3 +37,32 @@
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
 
 <%= link_to "Back", :back %>
+
+<script>
+  // compliments of verysimple.com
+  function clearPwBox()
+  {
+    if (document.getElementById) {
+      var pw = document.getElementById('user_password');
+      if (pw != null) { pw.value = ''; }
+    }
+  }
+  window.setTimeout("clearPwBox()", 1000);
+
+  function addLink() {
+    var new_link = $("<li></li>");
+    new_link.html("<input type='text' class='user_links' type='text' name='user[links][]' />");
+    new_link.append("<a href='javascript:void(0)' onclick='removeLink(this)'>x</a>");
+    $('#user_links').append( new_link );
+  }
+
+  function removeLink(link) {
+    console.log(link);
+    console.log($(link));
+
+    $(link).parent().remove();
+
+    return false;
+  }
+</script>
+

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 
+  status: MyString
+  monthly_fee: 9.99
+  next_payment_due: 2010-12-15 16:27:28
+  member_since: 2010-12-15 16:27:28
+
+two:
+  user_id: 
+  status: MyString
+  monthly_fee: 9.99
+  next_payment_due: 2010-12-15 16:27:28
+  member_since: 2010-12-15 16:27:28
