@@ -6,7 +6,7 @@ Nodewise::Application.routes.draw do
     get '/logout' => 'devise/sessions#destroy'
   end
 
-  resources :user, :controller => "user"
+  resources :user, :controller => "users"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

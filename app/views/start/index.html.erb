@@ -1,4 +1,10 @@
 <%= set_title "Home" %>
 
-<p>Members, access, billing?</p>
-<p>Doors, finances, utilities?</p>
+<% if !user_signed_in? %>
+  <p>Member info, access, billing?</p>
+  <p>Doors, finances, utilities?</p>
+  <p>Existing Baltimore Node Members can <%= link_to "sign up", new_user_registration_path %> for an account.</p>
+<% else %>
+  <%= render :partial => 'shared/dashboard' %>
+<% end %>
+

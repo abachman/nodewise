@@ -32,13 +32,13 @@
   <![endif]-->
   <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen, projection">
   <script src="/javascripts/modernizr.js"></script>
-
   <%= csrf_meta_tag %>
 </head>
 <body data-controller="<%= controller_name %>" data-action="<%= action_name %>">
   <%= render :partial => 'shared/header' %>
 
   <div id="container" class='container'>
+
     <div id="main">
       <%= yield %>
     </div>

@@ -1,4 +1,4 @@
-SITENAME = {
+NODEWISE = {
   common: {
     init: function() {
       // application-wide code
@@ -18,7 +18,7 @@ SITENAME = {
 
 UTIL = {
   exec: function( controller, action ) {
-    var ns = SITENAME,
+    var ns = NODEWISE,
         action = ( action === undefined ) ? "init" : action;
 
     if ( controller !== "" && ns[controller] && typeof ns[controller][action] == "function" ) {
@@ -37,4 +37,13 @@ UTIL = {
   }
 };
 
-$( document ).ready( UTIL.init );
+$(document).ready( UTIL.init );
+
+$(document).ready(function () {
+  if (window.console === undefined) {
+    var mdiv = $('<div></div>'); $('body').append(mdiv);
+    window.console = {log: function(msg){ mdiv.html( mdiv.html() + "<br>" + msg ) }};
+  }
+
+  $('.flash').delay(2000).fadeOut(1000);
+});

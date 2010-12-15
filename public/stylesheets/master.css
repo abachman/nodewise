@@ -1,4 +1,4 @@
-#header_container { height: 46px; margin-bottom: 50px; }
+#header_container { height: 46px; margin-bottom: 12px; }
 #header_container h2 { color: #fff; 
   float: left;
   padding-top: 10px;
@@ -8,7 +8,7 @@
   font-family: 'Geo', arial, serif;
 }
 #header_container h2 a { color: #eee; text-decoration: none; }
-footer { margin: 25px auto; text-align: center; width: 800px; color: #777; }
+footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }
 /**
  * http://css3please.com/
  **/
@@ -31,18 +31,9 @@ footer { margin: 25px auto; text-align: center; width: 800px; color: #777; }
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#aaa)"; /* IE8 */
 }
 
-nav { 
-  height: 45px;
-  float: right;
-}
-nav ul.main_nav {
-  height: 45px;
-}
-nav ul.main_nav li {
-  display: block;
-  float: left;
-  position: relative;
-}
+nav { height: 45px; float: right; }
+nav ul.main_nav { height: 45px; }
+nav ul.main_nav li { display: block; float: left; position: relative; }
 nav a {
   color: #000;
   display: block;
@@ -52,18 +43,25 @@ nav a {
   height: 45px;
   line-height: 45px;
   padding: 0 10px;
-  text-shadow: 0 1px 3px #e5ecf9;
+  text-shadow: 0 1px 0px #e5ecf9;
   text-decoration: none;
 }
-nav a:hover, nav a.selected {
-  color: #333;
-}
+nav a:hover, nav a.selected { color: #333; }
 nav a.user span {
   background: url(../images/dropdown_arrow.png) no-repeat right center;
   font-size: 12px;
   padding-right: 15px;
 }
-nav a.user img {
-  margin-right: 5px;
-  vertical-align: middle;
-}
+nav a.user img { margin-right: 5px; vertical-align: middle; }
+
+.flash { padding: 7px 10px 5px; height: 19px; display: inline-block; vertical-align: middle; margin: 6px 0 0 30px; }
+#flash_error, #flash_alert { background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4; }
+#flash_notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
+#flash_success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+#flash_info {background:#d5edf8;color:#205791;border-color:#92cae4;}
+#flash_error a, #flash_alert a {color:#8a1f11;}
+#flash_notice a {color:#514721;}
+#flash_success a {color:#264409;}
+#flash_info a {color:#205791;}
+
+#container h2 { border-top: 4px solid #E0E0E0 ; font-size: 150% ; margin-top: 1.5em ; padding-top: 0.5em ; }
