@@ -1,42 +1,70 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit <%= resource.full_name %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+  <div class="span-12">
+    <div class="form_section">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+    </div>
 
-  <p><%= f.label :full_name %><br />
-  <%= f.text_field :full_name %></p>
+    <div class="form_section">
+      <%= f.label :full_name %><br />
+      <%= f.text_field :full_name %>
+    </div>
 
-  <p><%= f.label :bio %> <i>(this field will be rendered with <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">markdown</a>)</i><br />
-  <%= f.text_area :bio %></p>
+    <div class="form_section">
+      <%= f.label :bio %> <i>(this field will be rendered with <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">markdown</a>)</i><br />
+      <%= f.text_area :bio %>
+    </div>
+  </div>
+  <div class="span-12 last">
+    <div class="form_section">
+      <%= f.label :links %><br />
+      <ol id='user_links'>
+        <% f.object.links.each_with_index do |link, count| %>
+          <li><input type='text' class="user_link" type='text' name='user[links][]' value="<%= link %>" /> <a href="javascript:void(0)" onclick="removeLink(this)">x</a></li>
+        <% end %>
+      </ol>
+      <a href="javascript:addLink()">add link</a>
+    </div>
 
-  <p><%= f.label :links %><br />
-  <ol id='user_links'>
-    <% f.object.links.each_with_index do |link, count| %>
-      <li><input type='text' class="user_link" type='text' name='user[links][]' value="<%= link %>" /> <a href="javascript:void(0)" onclick="removeLink(this)">x</a></li>
+    <% if current_user.is? :admin %>
+      <div class="form_section">
+        <h3>Manage Roles:</h3>
+        <% User.valid_roles.each do |role| %>
+          <%= check_box_tag "user[roles][]", role, f.object.roles.include?(role) %>
+          <%=h role.to_s.humanize %><br />
+        <% end %>
+        <%= hidden_field_tag "user[roles][]", "" %>
+      </div>
+    <% else %>
+      <div class="box_round">
+        <h3>Your Roles:</h3>
+        <ul>
+          <% f.object.roles.each do |role| %>
+            <li><%= role %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-  </ol>
-  <a href="javascript:addLink()">add link</a>
 
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
+    <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password %></p>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+    <p><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %></p>
+  </div>
 
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
+  <div class="span-24">
+    <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password %></p>
 
-  <p><%= f.submit "Update" %></p>
+
+    <p><%= f.submit "Update" %> | <%= link_to "Back", :back %></p>
+  </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
 
 <script>
   // compliments of verysimple.com

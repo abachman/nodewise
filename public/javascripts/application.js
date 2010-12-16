@@ -37,4 +37,13 @@ UTIL = {
   }
 };
 
-$( document ).ready( UTIL.init );
+$(document).ready(UTIL.init);
+$(document).ready(function () {
+  if (window.console === undefined) {
+    var mdiv = $('<div></div>'); $('body').append(mdiv);
+    window.console = {log: function(msg){ mdiv.html( mdiv.html() + "<br>" + msg ) }};
+  }
+
+  // wait 5 seconds, fade out
+  $('.flash').delay(5000).fadeOut(1000);
+});

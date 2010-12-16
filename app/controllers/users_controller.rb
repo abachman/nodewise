@@ -1,9 +1,9 @@
 #user_controller.rb
-class UserController < ApplicationController
+class UsersController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @users = User.excludes(:id => current_user.id)
+    @users = User.all
   end
   
   def new

@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(:version => 20101215212728) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id",          :null => false
-    t.string   "status",           :null => false
+    t.string   "state",            :null => false
     t.decimal  "monthly_fee",      :null => false
     t.datetime "next_payment_due", :null => false
     t.datetime "member_since",     :null => false
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(:version => 20101215212728) do
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",    :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
-    t.string   "password_salt",                       :default => "",    :null => false
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -42,13 +42,14 @@ ActiveRecord::Schema.define(:version => 20101215212728) do
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                               :default => false
     t.string   "image_url"
     t.text     "bio"
     t.text     "rendered_bio"
     t.text     "links"
     t.string   "full_name"
+    t.string   "username"
     t.string   "status"
+    t.integer  "roles_mask"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

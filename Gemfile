@@ -11,6 +11,8 @@ gem 'texticle' # text search
 gem 'rdiscount' # markdown
 gem 'dalli' # memcache
 gem 'i18n'
+gem 'role_model'
+gem 'transitions', :require => ["transitions", "active_record/transitions"]
 
 # To use debugger
 group :development do

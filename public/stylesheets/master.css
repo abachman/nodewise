@@ -1,14 +1,3 @@
-#header_container { height: 46px; margin-bottom: 12px; }
-#header_container h2 { color: #fff; 
-  float: left;
-  padding-top: 10px;
-  font-size: 28px;
-  font-weight: bold;
-  text-shadow:1px 1px 2px #939EAD;
-  font-family: 'Geo', arial, serif;
-}
-#header_container h2 a { color: #eee; text-decoration: none; }
-footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }
 /**
  * http://css3please.com/
  **/
@@ -31,6 +20,17 @@ footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#aaa)"; /* IE8 */
 }
 
+/* HEADER */
+#header_container { height: 46px; margin-bottom: 12px; }
+#header_container h2 { color: #fff; 
+  float: left;
+  padding-top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow:1px 1px 2px #939EAD;
+  font-family: 'Geo', arial, serif;
+}
+#header_container h2 a { color: #eee; text-decoration: none; }
 nav { height: 45px; float: right; }
 nav ul.main_nav { height: 45px; }
 nav ul.main_nav li { display: block; float: left; position: relative; }
@@ -64,4 +64,15 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 #flash_success a {color:#264409;}
 #flash_info a {color:#205791;}
 
+/* BODY */
 #container h2 { border-top: 4px solid #E0E0E0 ; font-size: 150% ; margin-top: 1.5em ; padding-top: 0.5em ; }
+
+.profile { margin: 16px 0; }
+.profile img { float: left; margin-right: 12px;}
+
+/* FOOTER */
+footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }
+
+/* FORMS */
+.form_section { margin: 16px auto; }
+
