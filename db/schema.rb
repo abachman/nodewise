@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20101215212728) do
     t.string   "image_url"
     t.text     "bio"
     t.text     "rendered_bio"
-    t.text     "links"
     t.string   "full_name"
     t.string   "username"
     t.string   "status"

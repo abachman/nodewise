@@ -1,20 +1,15 @@
 <%# this is a member profile page %>
-<div class="span-24">
-  <h1><%= @user.full_name %></h1>
+<div class="span-24 full_profile">
+  <div class="head">
+    <h1><%= @user.full_name %></h1>
+    <em>member since <%= @user.membership.member_since.strftime("%d %b %Y") %></em>
+  </div>
+
   <div class="span-4">
     <img src='<%= @user.gravatar_url(128) %>' />
   </div>
-  <div class="span-20 last">
+  <div class="span-12 last">
     <%= raw @user.rendered_bio %>
-
-    <% if @user.links.size > 0 %>
-      <ul>
-        <% @user.links.each do |link_url| %>
-          <% next if link_url !~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix %>
-          <li><%= link_to link_url, link_url %></li>
-        <% end %>
-      </ul>
-    <% end %>
   </div>
 
   <% if @user == current_user %>

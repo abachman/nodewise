@@ -1,13 +1,36 @@
-<h2>Billing History</h2>
+<div class="span-16">
+  <h2>Billing History</h2>
 
-<h2>Voting History</h2>
+<div class="span-16">
+  <h2>Voting History</h2>
+</div>
 
-<h2>Your Information</h2>
-<p><%= link_to "Edit your settings", edit_user_registration_path(current_user) %></p>
+<div class="span-16">
+  <h2>Your Information
+  <%= image_tag current_user.gravatar_url, :style => 'float: right' %></h2>
+  <p><%= link_to "Edit your settings", edit_user_path(current_user) %></p>
+</div>
 
 <table>
   <tr>
     <td>Name:</td>
     <td><%= current_user.full_name %></td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td><%= current_user.email %></td>
+  </tr>
+
+  <tr>
+    <td>Username:</td>
+    <td><%= current_user.username %></td>
+  </tr>
+  <tr>
+    <td>Bio:</td>
+    <td><%= raw current_user.rendered_bio %></td>
+  </tr>
+  <tr>
+    <td>Profile URL:</td>
+    <td><%= link_to member_url(current_user.username), member_url(current_user.username) %></td>
   </tr>
 </table>

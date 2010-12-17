@@ -14,6 +14,9 @@ gem 'i18n'
 gem 'role_model'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 
+# generate dummy text
+gem 'faker'
+
 # To use debugger
 group :development do
   gem 'ruby-debug'
@@ -33,5 +36,6 @@ group :test do
   gem 'rspec-rails'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
+  gem 'factory_girl_rails'
 end
 

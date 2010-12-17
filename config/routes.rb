@@ -7,6 +7,8 @@ Nodewise::Application.routes.draw do
   # end
 
   resources :users
+  get '/members' => 'users#index', :as => :members
+  match '/:username' => 'users#show', :as => :member
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

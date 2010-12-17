@@ -10,8 +10,8 @@
       <nav>
         <ul class="main_nav">
           <% if user_signed_in? %>
-            <li><%= link_to "Members", users_path %></li>
-            <li><%= link_to "Pay", "#" %></li>
+            <li><%= link_to "Members", members_path %></li>
+            <li><%= link_to "Dues", "#" %></li>
             <li><%= link_to "Vote", "#" %></li>
             <li><%= link_to "Sign out", destroy_user_session_path %></li>
           <% else %>

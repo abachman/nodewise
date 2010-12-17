@@ -1,12 +1,18 @@
-<h2>Edit <%= resource.full_name %></h2>
+<h2>Edit <%= @user.full_name %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<%= form_for(@user) do |f| %>
+  <%= f.error_messages %>
 
   <div class="span-12">
     <div class="form_section">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+      <%= f.label :username %>
+      <i>(this is used for your <%= link_to "profile link", member_path(@user.username), :target => '_blank' %>)</i><br />
+      <%= f.text_field :username %>
+    </div>
+
+    <div class="form_section">
+      <%= f.label :email %> <i>(to get a profile image, sign up with this email address on <%= link_to "Gravatar", "http://www.gravatar.com/" %>)</i><br />
+      <%= f.text_field :email %>
     </div>
 
     <div class="form_section">
@@ -21,13 +27,13 @@
   </div>
   <div class="span-12 last">
     <div class="form_section">
-      <%= f.label :links %><br />
-      <ol id='user_links'>
-        <% f.object.links.each_with_index do |link, count| %>
-          <li><input type='text' class="user_link" type='text' name='user[links][]' value="<%= link %>" /> <a href="javascript:void(0)" onclick="removeLink(this)">x</a></li>
-        <% end %>
-      </ol>
-      <a href="javascript:addLink()">add link</a>
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password %>
+    </div>
+
+    <div class="form_section">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
     </div>
 
     <% if current_user.is? :admin %>
@@ -49,19 +55,9 @@
         </ul>
       </div>
     <% end %>
-
-    <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password %></p>
-
-    <p><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %></p>
   </div>
 
   <div class="span-24">
-    <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password %></p>
-
-
     <p><%= f.submit "Update" %> | <%= link_to "Back", :back %></p>
   </div>
 <% end %>
@@ -76,21 +72,5 @@
     }
   }
   window.setTimeout("clearPwBox()", 1000);
-
-  function addLink() {
-    var new_link = $("<li></li>");
-    new_link.html("<input type='text' class='user_links' type='text' name='user[links][]' />");
-    new_link.append("<a href='javascript:void(0)' onclick='removeLink(this)'>x</a>");
-    $('#user_links').append( new_link );
-  }
-
-  function removeLink(link) {
-    console.log(link);
-    console.log($(link));
-
-    $(link).parent().remove();
-
-    return false;
-  }
 </script>
 

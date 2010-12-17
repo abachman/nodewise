@@ -1,13 +1,11 @@
 #user_controller.rb
 class UsersController < ApplicationController
+  before_filter :find_user, :only => [:show]
+
   load_and_authorize_resource
   
   def index
     @users = User.all
-  end
-  
-  def new
-    @user = User.new
   end
   
   def create
@@ -44,4 +42,14 @@ class UsersController < ApplicationController
     end
   end
   
+protected
+  def find_user
+    @user = User.with_username params[:username]
+
+    if @user.nil?
+      flash[:error] = "Sorry, we couldn't find that user."
+      redirect_to root_url
+      return false
+    end
+  end
 end

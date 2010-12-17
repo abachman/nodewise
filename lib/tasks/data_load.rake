@@ -4,36 +4,22 @@ namespace :data do
 
     # Regular User
     puts "load member"
-    user = User.create(
-      :email                 => "member@email.com",
-      :password              => "password",
-      :password_confirmation => 'password',
-      :full_name             => "Hackerspace Member",
-      :username              => "member",
-      :bio                   => "I've been a member for long enough to know the difference between wrong and right.",
-      :links                 => ["http://google.com", "http://hackerspaces.org"]
-    )
-    user.update_attribute :roles, [:member]
-    user.confirm!
+    create_active_member('')
 
-    mbr = Membership.create(
-      :user => user,
-      :monthly_fee => "50.00",
-      :next_payment_due => Date.new(2011, 5, 1),
-      :member_since => Date.new(2009, 4, 1)
-    )
-    mbr.activate!
+    # A bunch of regular users
+    25.times do |n|
+      create_active_member(n)
+    end
 
     # Admin
     puts "load admin"
     user = User.create(
-      :email => "admin@email.com",
-      :password => "password",
+      :email                 => "admin@email.com",
+      :password              => "password",
       :password_confirmation => 'password',
-      :full_name => "Hackerspace Admin",
+      :full_name             => "Hackerspace Admin",
       :username              => "administrator",
-      :bio => "I am the most powerful user in the system.",
-      :links => ["http://google.com", "http://hackerspaces.org"]
+      :bio                   => "I am the most powerful user in the system."
     )
     user.update_attribute :roles, [:admin, :member]
     user.confirm!
@@ -49,13 +35,12 @@ namespace :data do
     # Treasurer
     puts "load treasurer"
     user = User.create(
-      :email => "treasurer@email.com",
-      :password => "password",
+      :email                 => "treasurer@email.com",
+      :password              => "password",
       :password_confirmation => 'password',
-      :full_name => "Hackerspace Treasurer",
+      :full_name             => "Hackerspace Treasurer",
       :username              => "treasurer",
-      :bio => "I control the **money**.",
-      :links => ["http://google.com", "http://hackerspaces.org"]
+      :bio                   => "I control the **money**."
     )
     user.update_attribute :roles, [:treasurer, :member]
     user.confirm!
@@ -68,4 +53,29 @@ namespace :data do
     )
     mbr.activate!
   end
+end
+
+def create_active_member(tag)
+  user = User.create(
+    :email                 => "member#{ tag }@email.com",
+    :password              => "password",
+    :password_confirmation => 'password',
+    :full_name             => "Hackerspace Member#{ tag }",
+    :username              => "member#{tag}",
+    :bio                   => get_bio
+  )
+  user.update_attribute :roles, [:member]
+  user.confirm!
+
+  mbr = Membership.create(
+    :user => user,
+    :monthly_fee => "50.00",
+    :next_payment_due => Date.new(2011, 5, 1),
+    :member_since => Date.new(2009, 4, 1)
+  )
+  mbr.activate!
+end
+
+def get_bio
+  Faker::Lorem.sentences(5).join(" ")
 end

@@ -13,7 +13,7 @@ class Ability
       can :manage, Membership
     end
 
-    can :manage, User
+    can :manage, User, :id => user.id
     can :read, :all 
   end
 end

@@ -3,7 +3,6 @@ class AddFieldsToUsers < ActiveRecord::Migration
     add_column :users, :image_url,    :string
     add_column :users, :bio,          :text
     add_column :users, :rendered_bio, :text
-    add_column :users, :links,        :text
     add_column :users, :full_name,    :string
     add_column :users, :username,     :string
     add_column :users, :status,       :string
@@ -14,7 +13,6 @@ class AddFieldsToUsers < ActiveRecord::Migration
     remove_column :users, :roles_mask
     remove_column :users, :status
     remove_column :users, :full_name
-    remove_column :users, :links
     remove_column :users, :rendered_bio
     remove_column :users, :bio
     remove_column :users, :image_url
