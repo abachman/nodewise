@@ -19,7 +19,7 @@
 
   <% if @user == current_user %>
     <br class='clearfix' />
-    <%= link_to "Edit your profile", edit_registration_path(:id => @user.id) %>
+    <%= link_to "Edit your profile", edit_user_path(:id => @user.id) %>
   <% end %>
 
 </div>
