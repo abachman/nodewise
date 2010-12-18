@@ -13,7 +13,7 @@ namespace :data do
 
     # Admin
     puts "load admin"
-    user = User.create(
+    user = User.new(
       :email                 => "admin@email.com",
       :password              => "password",
       :password_confirmation => 'password',
@@ -21,8 +21,9 @@ namespace :data do
       :username              => "administrator",
       :bio                   => "I am the most powerful user in the system."
     )
-    user.update_attribute :roles, [:admin, :member]
-    user.confirm!
+    user.roles = [:admin, :member]
+    user.skip_confirmation!
+    user.save
 
     mbr = Membership.create(
       :user => user,
@@ -34,7 +35,7 @@ namespace :data do
 
     # Treasurer
     puts "load treasurer"
-    user = User.create(
+    user = User.new(
       :email                 => "treasurer@email.com",
       :password              => "password",
       :password_confirmation => 'password',
@@ -42,8 +43,9 @@ namespace :data do
       :username              => "treasurer",
       :bio                   => "I control the **money**."
     )
-    user.update_attribute :roles, [:treasurer, :member]
-    user.confirm!
+    user.roles = [:treasurer, :member]
+    user.skip_confirmation!
+    user.save
 
     mbr = Membership.create(
       :user => user,
@@ -56,7 +58,7 @@ namespace :data do
 end
 
 def create_active_member(tag)
-  user = User.create(
+  user = User.new(
     :email                 => "member#{ tag }@email.com",
     :password              => "password",
     :password_confirmation => 'password',
@@ -64,8 +66,9 @@ def create_active_member(tag)
     :username              => "member#{tag}",
     :bio                   => get_bio
   )
-  user.update_attribute :roles, [:member]
-  user.confirm!
+  user.roles = [:member]
+  user.skip_confirmation!
+  user.save
 
   mbr = Membership.create(
     :user => user,
