@@ -3,6 +3,8 @@ require 'md5'
 
 class User < ActiveRecord::Base
   include RoleModel
+  roles_attribute :roles_mask
+  roles :admin, :treasurer, :member, :guest
 
   # username lockdown
   validates_presence_of :username
@@ -35,9 +37,6 @@ class User < ActiveRecord::Base
   serialize :links
 
   before_save :generate_rendered_bio, :if => lambda { !(self.bio.nil? || self.bio.empty?) }
-
-  roles_attribute :roles_mask
-  roles :admin, :treasurer, :member, :guest
 
   def gravatar_hash
     hash = MD5.new(email.chomp.downcase)

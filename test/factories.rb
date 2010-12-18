@@ -1,9 +1,9 @@
 ##############
 ## USERS
 Factory.define :member, :class => User do |u|
-  u.email     'member@email.com'
+  u.sequence(:email) {|n| "member#{n}@email.com"}
   u.full_name 'Hackerspace Member'
-  u.username  'member'
+  u.sequence(:username) {|n| "member#{n}"}
   u.password  'password'
   u.password_confirmation 'password'
   u.bio  "I've been a member for long enough to know the difference between wrong and right."

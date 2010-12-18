@@ -10,6 +10,8 @@ Nodewise::Application.routes.draw do
   get '/members' => 'users#index', :as => :members
   match '/:username' => 'users#show', :as => :member
 
+  resources :memberships, :except => [:create, :new]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

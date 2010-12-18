@@ -1,0 +1,6 @@
+<% if @user == current_user %>
+  <h1>Edit your membership</h1>
+<% else %>
+  <h1>Editing Membership for <%= @user.full_name %></h1>
+<% end %>
+<p>Find me in app/views/memberships/edit.html.erb</p>

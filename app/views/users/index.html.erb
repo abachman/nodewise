@@ -1,11 +1,5 @@
 <% @users.each_with_index do |user, count| %>
-  <div class='span-8 <%= 'last' if (count+1) % 3 == 0 %>'>
-    <div href="<%= member_url(user.username) %>" class="profile clearfix <%= 'mine' if user === current_user %>">
-      <img src='<%= user.gravatar_url(128) %>' />
-      <strong><%= user.username %></strong><br />
-      <%= user.membership.member_since.strftime("%b %Y") %><br />
-    </div>
-  </div>
+  <%= render 'member_profile', :user => user, :count => count %>
 <% end %>
 
 <script>
@@ -22,6 +16,5 @@
       }
     );
   });
-
 </script>
 
