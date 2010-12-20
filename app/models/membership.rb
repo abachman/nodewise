@@ -47,7 +47,7 @@ class Membership < ActiveRecord::Base
     # schedule payment
     if invoices.count == 0 || invoices.where(:next_payment_due => self.class.next_payment_date).count == 0
       invoices.create(
-        :amount => this.monthly_fee,
+        :amount => self.monthly_fee,
         :reason => Invoice::DUES,
         :due_by => self.class.next_payment_date,
         :membership => self
