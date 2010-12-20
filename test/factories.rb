@@ -30,7 +30,6 @@ end
 Factory.define :membership do |m|
   m.association :user, :factory => :user
   m.monthly_fee "50.00"
-  m.next_payment_due Date.new(2011, 5, 1)
   m.member_since Date.new(2009, 4, 1)
 end
 
@@ -40,4 +39,13 @@ end
 
 Factory.define :inactive_membership, :parent => :membership do |m|
   m.state 'inactive'
+end
+
+##########
+## PAYMENT
+
+Factory.define :invoice do |i|
+  i.amount 50
+  i.reason "dues"
+  i.due_by { Membership.next_payment_date }
 end

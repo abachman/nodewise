@@ -23,11 +23,10 @@ ActiveRecord::Schema.define(:version => 20101220005435) do
   end
 
   create_table "memberships", :force => true do |t|
-    t.integer  "user_id",          :null => false
-    t.string   "state",            :null => false
-    t.decimal  "monthly_fee",      :null => false
-    t.datetime "next_payment_due", :null => false
-    t.datetime "member_since",     :null => false
+    t.integer  "user_id",      :null => false
+    t.string   "state",        :null => false
+    t.decimal  "monthly_fee",  :null => false
+    t.datetime "member_since", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,13 +42,13 @@ ActiveRecord::Schema.define(:version => 20101220005435) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                         :default => "", :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -67,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20101220005435) do
     t.string   "username"
     t.string   "status"
     t.integer  "roles_mask"
+    t.boolean  "send_dues_notification"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

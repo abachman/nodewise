@@ -7,7 +7,8 @@ class Ability
     if user.is? :admin
       can :manage, User
       can :read, :all 
-      can [:edit, :update], Membership, :user_id => user.id
+      can [:read, :edit, :update, :change_status], Membership
+      # can [:edit, :update], Membership, :user_id => user.id
     end
 
     if user.is? :treasurer
@@ -15,16 +16,21 @@ class Ability
       can :change_fee, Membership
       can :manage, Invoice
       can :manage, Payment
+      can :manage, Finance
     end
 
-    can :manage, User, :id => user.id
-    can :read, Invoice, :membership_id => user.membership.id
+    can :read, Membership, :user_id => user.id
+
+    can [:pay, :read], Invoice, :membership_id => user.membership.id
+
+    can :create, Payment
     can :read, Payment do |payment|
       user.membership.invoices.select {|inv|
         inv.payment.id == payment.id
       }.size > 0
     end
 
+    can :manage, User, :id => user.id
     can :read, User
   end
 end

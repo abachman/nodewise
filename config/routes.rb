@@ -1,4 +1,6 @@
 Nodewise::Application.routes.draw do
+  match "/finances" => "finances#index", :as => :finances
+
   devise_for :users
 
   # devise_scope :user do

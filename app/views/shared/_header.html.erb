@@ -11,8 +11,10 @@
         <ul class="main_nav">
           <% if user_signed_in? %>
             <li><%= link_to "Members", members_path %></li>
-            <li><%= link_to "Dues", "#" %></li>
-            <li><%= link_to "Vote", "#" %></li>
+            <% if can?(:manage, Invoice) %>
+              <li><%= link_to "Finances", finances_path %></li>
+            <% end %>
+            <li><%= link_to "Voting", "#" %></li>
             <li><%= link_to "Sign out", destroy_user_session_path %></li>
           <% else %>
             <li><%= link_to "Sign in", new_user_session_path %></li>

@@ -36,25 +36,28 @@
   <% end %>
   <table id="invoices">
     <tr>
-      <th>
-        Reason
-      </th>
-      <th>
-        Amount
-      </th>
-      <th>
-        Due
-      </th>
-      <th>
-        Paid?
-      </th>
+      <th> Reason </th>
+      <th> Amount </th>
+      <th> Due </th>
+      <th> Paid?  </th>
+      <th> </th>
     </tr>
     <% membership.invoices.each_with_index do |invoice, count| %>
-      <tr class="invoice-row" id="invoice-row-<%= count %>">
+      <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= count %>">
         <td><%= invoice.reason %></td>
-        <td><%= invoice.amount %></td>
+        <td><%= number_to_currency invoice.amount %></td>
         <td><%= invoice.due_by.strftime("%d %b %Y") %></td>
         <td><%= invoice.paid? %></td>
+        <td>
+          <% if can?(:manage, Invoice) && !invoice.paid? %> 
+            <%= link_to "Send notification", "#" %>
+            &nbsp; &nbsp; &nbsp;
+          <% end %>
+
+          <% if can?(:pay, invoice) && !invoice.paid? %>
+            <%= link_to "Pay", "#" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>

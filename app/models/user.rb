@@ -6,12 +6,14 @@ class User < ActiveRecord::Base
   roles_attribute :roles_mask
   roles :admin, :treasurer, :member, :guest
 
-  # username lockdown
+  ### username lockdown
   validates_presence_of :username
   validates_uniqueness_of :username, :case_sensitive => false
+  # reserved usernames, so that we can use /:username as a shortlink to a user
   validates_exclusion_of :username,
-    :in => %w[ users admin reports ads partners api votes ],
+    :in => %w[ users admin reports ads partners api issues votes finances ],
     :message => "%{value} is reserved."
+  # username must look like...
   validates_format_of :username,
     :with => /^[a-zA-Z0-9_-]+$/,
     :message => "must contain only letters, numbers, -, and _"

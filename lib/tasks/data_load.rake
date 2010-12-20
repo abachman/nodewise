@@ -71,7 +71,6 @@ def generate_membership(user)
   mbr = Membership.create(
     :user => user,
     :monthly_fee => "50.00",
-    :next_payment_due => Date.new(2011, 5, 1),
     :member_since => start_date
   )
   mbr.activate!

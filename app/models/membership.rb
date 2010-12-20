@@ -5,7 +5,6 @@ class Membership < ActiveRecord::Base
 
   # Day of the month that payments are due
   PAYMENT_DUE_ON = 20
-  before_save :set_next_payment_due
 
   attr_protected :user_id
 
@@ -46,6 +45,14 @@ class Membership < ActiveRecord::Base
   def do_activation
     # prepare alerts
     # schedule payment
+    if invoices.count == 0 || invoices.where(:next_payment_due => self.class.next_payment_date).count == 0
+      invoices.create(
+        :amount => this.monthly_fee,
+        :reason => Invoice::DUES,
+        :due_by => self.class.next_payment_date,
+        :membership => self
+      )
+    end
   end
 
   def self.next_payment_date after_date=nil
@@ -54,11 +61,4 @@ class Membership < ActiveRecord::Base
     
     DateTime.new after_date.year, after_date.month, PAYMENT_DUE_ON
   end
-
-  def set_next_payment_due
-    if self.next_payment_due.nil?
-      self.next_payment_due = self.class.next_payment_date
-    end
-  end
-
 end
