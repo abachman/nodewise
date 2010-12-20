@@ -1,5 +1,13 @@
+require 'date'
+
 class Membership < ActiveRecord::Base
   include ActiveRecord::Transitions
+
+  # Day of the month that payments are due
+  PAYMENT_DUE_ON = 20
+  before_save :set_next_payment_due
+
+  attr_protected :user_id, :state, :next_payment_due
 
   belongs_to :user
   validates_uniqueness_of :user_id
@@ -34,6 +42,19 @@ class Membership < ActiveRecord::Base
   def do_activation
     # prepare alerts
     # schedule payment
+  end
+
+  def self.next_payment_date
+    next_payment = DateTime.now
+    next_payment = next_payment + 1.month if next_payment.day > PAYMENT_DUE_ON
+    
+    DateTime.new next_payment.year, next_payment.month, PAYMENT_DUE_ON
+  end
+
+  def set_next_payment_due
+    if self.next_payment_due.nil?
+      self.next_payment_due = self.class.next_payment_date
+    end
   end
 
 end

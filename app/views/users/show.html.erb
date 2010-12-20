@@ -1,5 +1,6 @@
 <%# this is a member profile page %>
 <div class="span-24 full_profile">
+
   <div class="head">
     <h1><%= @user.full_name %></h1>
     <em>member since <%= @user.membership.member_since.strftime("%d %b %Y") %></em>
@@ -8,14 +9,21 @@
   <div class="span-4">
     <img src='<%= @user.gravatar_url(128) %>' />
   </div>
-  <div class="span-12 last">
+  <div class="span-8">
     <%= raw @user.rendered_bio %>
   </div>
 
-  <% if @user == current_user %>
-    <br class='clearfix' />
-    <%= link_to "Edit your profile", edit_user_path(:id => @user.id) %>
-  <% end %>
+  <div class="span-4 last">
+    <% if can? :modify, @user %>
+      <%= link_to "Edit profile", edit_user_path(:id => @user.id) %>
+      <br />
+    <% end %>
+
+    <% if can? :edit, @user.membership %>
+      <%= link_to "Edit membership", edit_membership_path(@user.membership) %>
+      <br />
+    <% end %>
+  </div>
 
 </div>
 <br class='clearfix' />

@@ -3,4 +3,31 @@
 <% else %>
   <h1>Editing Membership for <%= @user.full_name %></h1>
 <% end %>
-<p>Find me in app/views/memberships/edit.html.erb</p>
+
+
+<% form_for(@membership) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="span-12">
+    <% if can? :change_fee, @membership %>
+      <div class="form_section">
+        <%= f.label :monthly_fee %><br />
+        <%= f.text_field :monthly_fee %>
+      </div>
+    <% end %>
+
+    <div class="form_section">
+      <%= f.label :member_since %><br />
+      <%= f.date_select :member_since, :discard_day => true %>
+    </div>
+
+    <div class="form_section">
+      <%= f.label :next_payment_due %><br />
+      <%= f.date_select :next_payment_due, :default => Membership.next_payment_date %>
+    </div>
+
+
+    <%= submit_tag %>
+  </div>
+
+<% end %>

@@ -28,7 +28,6 @@ namespace :data do
     mbr = Membership.create(
       :user => user,
       :monthly_fee => "50.00",
-      :next_payment_due => Date.new(2011, 5, 1),
       :member_since => Date.new(2009, 4, 1)
     )
     mbr.activate!
@@ -50,7 +49,6 @@ namespace :data do
     mbr = Membership.create(
       :user => user,
       :monthly_fee => "50.00",
-      :next_payment_due => Date.new(2011, 5, 1),
       :member_since => Date.new(2009, 4, 1)
     )
     mbr.activate!

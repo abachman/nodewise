@@ -10,3 +10,5 @@ Feature:
     And   I am on the members page
     When  I follow "Edit membership" for a user
     Then  I should see "Editing Membership for"
+
+  # admin can edit some fields, but not all

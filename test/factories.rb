@@ -7,7 +7,6 @@ Factory.define :member, :class => User do |u|
   u.password  'password'
   u.password_confirmation 'password'
   u.bio  "I've been a member for long enough to know the difference between wrong and right."
-  u.links ["http://google.com", "http://hackerspaces.org"]
   u.roles     [:member]
 end
 
