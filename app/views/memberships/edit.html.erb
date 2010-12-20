@@ -5,14 +5,14 @@
 <% end %>
 
 
-<% form_for(@membership) do |f| %>
+<%= form_for(@membership) do |f| %>
   <%= f.error_messages %>
 
   <div class="span-12">
     <% if can? :change_fee, @membership %>
       <div class="form_section">
         <%= f.label :monthly_fee %><br />
-        <%= f.text_field :monthly_fee %>
+        <%= f.text_field :monthly_fee, :value => ("%0.2f" % @membership.monthly_fee) %>
       </div>
     <% end %>
 
@@ -22,12 +22,86 @@
     </div>
 
     <div class="form_section">
-      <%= f.label :next_payment_due %><br />
-      <%= f.date_select :next_payment_due, :default => Membership.next_payment_date %>
+      <%= f.label :state, "Membership status" %><br />
+      <%= f.select :state, Membership.state_machine.states_for_select %>
+      <%= link_to_function "explanation", "$('#state-explanation').toggle()" %>
+      <div id='state-explanation' class='box' style="display:none">
+        <dl>
+          <dt>Preactive</dt><dd>This member has signed up for the site but their account hasn't been activated.</dd>
+          <dt>Active</dt><dd>Normal member.</dd>
+          <dt>Suspended</dt><dd>Continue to generate invoices but don't send notifications, don't allow voting.</dd>
+          <dt>Inactive</dt><dd>Don't allow payments, don't generate invoices, don't allow voting or access.</dd>
+        </dl>
+      </div>
     </div>
-
 
     <%= submit_tag %>
   </div>
+
+  <% if can? :manage, Invoice %>
+    <script>
+      function show_invoices(count) {
+        if (count == -1) {
+          $('#show-all-invoices').addClass("disabled_link");
+          $('#show-12-invoices').removeClass("disabled_link");
+
+          $('.invoice-row').show();
+        } else {
+          $('#show-all-invoices').removeClass("disabled_link");
+          $('#show-12-invoices').addClass("disabled_link");
+
+          var max_count = $('.invoice-row').length;
+          for (var i=0; i < max_count; i++) {
+            if (max_count - i <= 12) {
+              $('#invoice-row-' + i).show();
+            } else {
+              $('#invoice-row-' + i).hide();
+            }
+          }
+        }
+      }
+
+      $(function () {
+        if ($('.invoice-row').length > 12) {
+          show_invoices(12);
+        }
+      });
+    </script>
+    <div class="span-12 last">
+      <div class="form_section">
+        <strong>Invoices</strong>
+        <% if @membership.invoices.count > 12 %>
+          <span style="display:inline-block; float: right;">
+            <%= link_to_function "all #{ @membership.invoices.count }", "show_invoices(-1)", :id => 'show-all-invoices' %>
+            | <%= link_to_function "last 12", "show_invoices(12)", :id => 'show-12-invoices' %>
+          </span> 
+        <% end %>
+        <table id="invoices">
+          <tr>
+            <th>
+              Reason
+            </th>
+            <th>
+              Amount
+            </th>
+            <th>
+              Due
+            </th>
+            <th>
+              Paid?
+            </th>
+          </tr>
+          <% @membership.invoices.each_with_index do |invoice, count| %>
+            <tr class="invoice-row" id="invoice-row-<%= count %>">
+              <td><%= invoice.reason %></td>
+              <td><%= invoice.amount %></td>
+              <td><%= invoice.due_by.strftime("%d %b %Y") %></td>
+              <td><%= invoice.paid? %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  <% end %>
 
 <% end %>

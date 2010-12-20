@@ -7,10 +7,14 @@ class Membership < ActiveRecord::Base
   PAYMENT_DUE_ON = 20
   before_save :set_next_payment_due
 
-  attr_protected :user_id, :state, :next_payment_due
+  attr_protected :user_id, :state
 
   belongs_to :user
   validates_uniqueness_of :user_id
+
+  validates_numericality_of :monthly_fee
+
+  has_many :invoices
 
   state_machine do
     # a :preactive member can update their profile but cannot pay, participate
@@ -44,11 +48,11 @@ class Membership < ActiveRecord::Base
     # schedule payment
   end
 
-  def self.next_payment_date
-    next_payment = DateTime.now
-    next_payment = next_payment + 1.month if next_payment.day > PAYMENT_DUE_ON
+  def self.next_payment_date after_date=nil
+    after_date ||= DateTime.now
+    after_date = after_date + 1.month if after_date.day > PAYMENT_DUE_ON
     
-    DateTime.new next_payment.year, next_payment.month, PAYMENT_DUE_ON
+    DateTime.new after_date.year, after_date.month, PAYMENT_DUE_ON
   end
 
   def set_next_payment_due

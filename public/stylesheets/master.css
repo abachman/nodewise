@@ -81,3 +81,5 @@ footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }
 /* FORMS */
 .form_section { margin: 16px auto; }
 
+.disabled_link { text-decoration: none; color: #777; }
+

@@ -14,6 +14,5 @@ Feature:
     And   I fill in "Password" with "password"
     And   I press "Sign in"
     Then  I should be on the new user session page
-    And   show me the page
     And   I should see "You have to confirm your account before continuing"
 

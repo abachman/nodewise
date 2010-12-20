@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101215212728) do
+ActiveRecord::Schema.define(:version => 20101220005435) do
+
+  create_table "invoices", :force => true do |t|
+    t.decimal  "amount"
+    t.string   "reason"
+    t.datetime "due_by"
+    t.boolean  "paid"
+    t.integer  "membership_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -23,6 +33,14 @@ ActiveRecord::Schema.define(:version => 20101215212728) do
   end
 
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id", :unique => true
+
+  create_table "payments", :force => true do |t|
+    t.decimal  "amount",     :null => false
+    t.integer  "invoice_id", :null => false
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
