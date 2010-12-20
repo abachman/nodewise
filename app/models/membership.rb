@@ -7,7 +7,7 @@ class Membership < ActiveRecord::Base
   PAYMENT_DUE_ON = 20
   before_save :set_next_payment_due
 
-  attr_protected :user_id, :state
+  attr_protected :user_id
 
   belongs_to :user
   validates_uniqueness_of :user_id

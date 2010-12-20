@@ -3,17 +3,24 @@
 
   <div class="head">
     <h1><%= @user.full_name %></h1>
-    <em>member since <%= @user.membership.member_since.strftime("%d %b %Y") %></em>
+    <% if @user.membership.active? || @user.membership.suspended? %>
+      <em>member since <%= @user.membership.member_since.strftime("%d %b %Y") %></em>
+    <% elsif @user.membership.inactive? %>
+      <em>this member is no longer active</em>
+    <% elsif @user.membership.preactive? %>
+      <em>this member is not yet active</em>
+    <% end %>
   </div>
 
   <div class="span-4">
     <img src='<%= @user.gravatar_url(128) %>' />
   </div>
+
   <div class="span-8">
     <%= raw @user.rendered_bio %>
   </div>
 
-  <div class="span-4 last">
+  <div class="push-4 span-4 last">
     <% if can? :modify, @user %>
       <%= link_to "Edit profile", edit_user_path(:id => @user.id) %>
       <br />

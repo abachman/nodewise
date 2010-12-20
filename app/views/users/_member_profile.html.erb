@@ -2,7 +2,14 @@
   <div href="<%= member_url(user.username) %>" class="profile clearfix <%= 'mine' if user === current_user %>">
     <img src='<%= user.gravatar_url(128) %>' />
     <strong><%= user.username %></strong><br />
-    <%= user.membership.member_since.strftime("%b %Y") %><br />
+
+    <% if user.membership.active? || user.membership.suspended? %>
+      <%= user.membership.member_since.strftime("%b %Y") %><br />
+    <% elsif user.membership.inactive? %>
+      <em>inactive</em>
+    <% elsif user.membership.preactive? %>
+      <em>not yet active</em>
+    <% end %>
 
     <div id ='edit_member_<%= user.id %>'>
       <% if can?(:modify, user.membership) %>

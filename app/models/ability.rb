@@ -24,6 +24,7 @@ class Ability
         inv.payment.id == payment.id
       }.size > 0
     end
-    # can :read, :all 
+
+    can :read, User
   end
 end

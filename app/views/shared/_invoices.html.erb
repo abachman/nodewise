@@ -1,0 +1,61 @@
+<% if can? :read, Invoice %>
+  <script>
+    function show_invoices(count) {
+      if (count == -1) {
+        $('#show-all-invoices').addClass("disabled_link");
+        $('#show-12-invoices').removeClass("disabled_link");
+
+        $('.invoice-row').show();
+      } else {
+        $('#show-all-invoices').removeClass("disabled_link");
+        $('#show-12-invoices').addClass("disabled_link");
+
+        var max_count = $('.invoice-row').length;
+        for (var i=0; i < max_count; i++) {
+          if (max_count - i <= 12) {
+            $('#invoice-row-' + i).show();
+          } else {
+            $('#invoice-row-' + i).hide();
+          }
+        }
+      }
+    }
+
+    $(function () {
+      if ($('.invoice-row').length > 12) {
+        show_invoices(12);
+      }
+    });
+  </script>
+  <strong>Invoices</strong>
+  <% if membership.invoices.count > 12 %>
+    <span style="display:inline-block; float: right;">
+      <%= link_to_function "all #{ membership.invoices.count }", "show_invoices(-1)", :id => 'show-all-invoices' %>
+      | <%= link_to_function "last 12", "show_invoices(12)", :id => 'show-12-invoices' %>
+    </span> 
+  <% end %>
+  <table id="invoices">
+    <tr>
+      <th>
+        Reason
+      </th>
+      <th>
+        Amount
+      </th>
+      <th>
+        Due
+      </th>
+      <th>
+        Paid?
+      </th>
+    </tr>
+    <% membership.invoices.each_with_index do |invoice, count| %>
+      <tr class="invoice-row" id="invoice-row-<%= count %>">
+        <td><%= invoice.reason %></td>
+        <td><%= invoice.amount %></td>
+        <td><%= invoice.due_by.strftime("%d %b %Y") %></td>
+        <td><%= invoice.paid? %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
