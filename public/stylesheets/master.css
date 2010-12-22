@@ -1,3 +1,7 @@
+/* Blueprint overrides */
+th { text-align: left; }
+form table { margin-bottom:1.4em;width:100%; }
+
 /**
  * http://css3please.com/
  **/
@@ -22,7 +26,8 @@
 
 /* HEADER */
 #header_container { height: 46px; margin-bottom: 12px; }
-#header_container h2 { color: #fff; 
+#header_container h2 {
+  color: #fff; 
   float: left;
   padding-top: 10px;
   font-size: 28px;
@@ -97,5 +102,7 @@ footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }
 /* FORMS */
 .form_section { margin: 16px auto; }
 .disabled_link { text-decoration: none; color: #777; }
-.unpaid { background-color: #fee; }
+tr.unpaid td { background-color: #fee !important; }
+
+#invoices-pager img { vertical-align: middle; }
 

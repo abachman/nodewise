@@ -1,71 +1,74 @@
 <% show_username ||= false %>
 <% if can? :read, Invoice %>
-  <script>
-    function show_invoices(count) {
-      if (count == -1) {
-        $('#show-all-invoices').addClass("disabled_link");
-        $('#show-12-invoices').removeClass("disabled_link");
+  <div class='clearfix'>
+    <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.min' %>
+    <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.pager' %>
+    <link rel='stylesheet' type='text/css' href='/javascripts/libs/tablesorter/style.css' />
+    <script>
+      $(function () {
+        $("#invoices").
+          tablesorter({widthFixed: true, widgets: ['zebra']}).
+          tablesorterPager({container: $('#invoices-pager'), positionFixed: false, size:25}); 
+      });
+    </script>
 
-        $('.invoice-row').show();
-      } else {
-        $('#show-all-invoices').removeClass("disabled_link");
-        $('#show-12-invoices').addClass("disabled_link");
+    <strong>Invoices</strong>
 
-        var max_count = $('.invoice-row').length;
-        for (var i=0; i < max_count; i++) {
-          if (max_count - i <= 12) {
-            $('#invoice-row-' + i).show();
-          } else {
-            $('#invoice-row-' + i).hide();
-          }
-        }
-      }
-    }
+    <div id="invoices-pager" class="clearfix">
+      <form>
+        <img src="/javascripts/libs/tablesorter/start.png" class="first"/>
+        <img src="/javascripts/libs/tablesorter/prev.png" class="prev"/>
+        <input type="text" class="pagedisplay"/>
+        <img src="/javascripts/libs/tablesorter/next.png" class="next"/>
+        <img src="/javascripts/libs/tablesorter/end.png" class="last"/>
+        <select class="pagesize">
+          <option value="10">10</option>
+          <option selected="selected" value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </form>
+    </div>
 
-    $(function () {
-      if ($('.invoice-row').length > 12) {
-        show_invoices(12);
-      }
-    });
-  </script>
-  <strong>Invoices</strong>
-  <% if invoices.count > 12 %>
-    <span style="display:inline-block; float: right;">
-      <%= link_to_function "all #{ invoices.count }", "show_invoices(-1)", :id => 'show-all-invoices' %>
-      | <%= link_to_function "last 12", "show_invoices(12)", :id => 'show-12-invoices' %>
-    </span> 
-  <% end %>
-  <table id="invoices">
-    <tr>
-      <% if show_username %>
-        <th>Member</th>
-      <% end %>
-      <th>Reason </th>
-      <th>Amount </th>
-      <th>Due </th>
-      <th>Paid?  </th>
-      <th> </th>
-    </tr>
-    <% invoices.each_with_index do |invoice, count| %>
-      <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= count %>">
-        <% if show_username %>
-          <td><%= invoice.membership.user.username %></td>
-        <% end %>                          
-        <td><%= invoice.reason %></td>     
-        <td><%= number_to_currency invoice .amount %></td>
-        <td><%= invoice.due_by.strftime("%d %b %Y") %></td>
-        <td><%= invoice.paid? %></td>
-        <td>
-          <% if can?(:manage, Invoice) && !invoice.paid? %> 
-            <%= link_to "Send notification", "#" %>
-            &nbsp; &nbsp; &nbsp;
+    <table id="invoices" class='tablesorter'>
+      <thead>
+        <tr>
+          <% if show_username %>
+            <th>Member</th>
           <% end %>
+          <th>Reason</th>
+          <th>Amount</th>
+          <th>Due</th>
+          <th>Paid</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% invoices.each_with_index do |invoice, count| %>
+          <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= count %>">
+            <% if show_username %>
+              <td><%= invoice.membership.user.username %></td>
+            <% end %>                          
+            <td><%= invoice.reason %></td>     
+            <td><%= number_to_currency invoice .amount %></td>
+            <td><%= invoice.due_by.strftime("%Y-%m-%d") %></td>
+            <td><%= invoice.payment.nil? ? '' : invoice.payment.created_at.strftime("%Y-%m-%d") %></td>
+            <td>
+              <% if can?(:manage, Invoice) && !invoice.paid? %> 
+                <%= link_to "Notify", "#" %>
+              <% end %>
+              <% if can?([:manage, :pay], Invoice) && !invoice.paid? %>
+                |
+              <% end %>
+              <% if can?(:pay, invoice) && !invoice.paid? %>
+                <%= link_to "Pay", "#" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-          <% if can?(:pay, invoice) && !invoice.paid? %>
-            <%= link_to "Pay", "#" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <br class="clearboth" />
 <% end %>

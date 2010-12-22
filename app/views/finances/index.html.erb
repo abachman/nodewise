@@ -10,24 +10,25 @@
 <div class="span-20">
   <h1>Finances</h1>
 
-  <div class="box box_round">
+  <div class="box box_round clearfix">
     <%= form_for(@payment) do |f| %>
       <h3>Create Payment</h3>
-      <div class="span-6">
-        <%= f.label :invoice_id, "For" %><br />
-        <%= f.select :invoice_id, @invoices_for_select, :blank => true %>
-      </div>
-      <div class="span-6">
-        <%= f.label :amount %><br />
-        <%= f.text_field :amount %>
-      </div>
-      <div class="span-4 last">
-        <%= f.submit %>
-      </div>
+      <table>
+        <tr>
+          <td><%= f.label :invoice_id, "For" %></td>
+          <td><%= f.label :amount %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.select :invoice_id, @invoices_for_select, :blank => true %></td>
+          <td><%= f.text_field :amount %></td>
+          <td><%= f.submit %></td>
+        </tr>
+      </table>
     <% end %>
   </div>
 </div>
 
 <div class="span-20">
-  <%= render 'shared/invoices', :invoices => @paid_invoices, :show_username => true %>
+  <%= render 'shared/invoices', :invoices => @invoices, :show_username => true %>
 </div>
