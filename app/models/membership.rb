@@ -45,14 +45,6 @@ class Membership < ActiveRecord::Base
   def do_activation
     # prepare alerts
     # schedule payment
-    if invoices.count == 0 || invoices.where(:next_payment_due => self.class.next_payment_date).count == 0
-      invoices.create(
-        :amount => self.monthly_fee,
-        :reason => Invoice::DUES,
-        :due_by => self.class.next_payment_date,
-        :membership => self
-      )
-    end
   end
 
   def self.next_payment_date after_date=nil

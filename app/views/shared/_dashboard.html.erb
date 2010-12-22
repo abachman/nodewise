@@ -1,6 +1,6 @@
 <div class="span-20">
   <h2 class="lead">Billing History</h2>
-  <%= render 'shared/invoices', :membership => current_user.membership %>
+  <%= render 'shared/invoices', :invoices => current_user.membership.invoices %>
 
   <h2>Voting History</h2>
 

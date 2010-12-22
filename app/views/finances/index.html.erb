@@ -1,11 +1,33 @@
+<% set_title "Manage Finances" %>
+<script>
+  var INVOICES = <%=raw invoice_amounts_hash(@unpaid_invoices).to_json %>;
+  $(function () {
+    $('#payment_invoice_id').change(function () {
+      $('#payment_amount').val( INVOICES[$('#payment_invoice_id').val()] );
+    });
+  });
+</script>
 <div class="span-20">
   <h1>Finances</h1>
 
-  <div class="push-2 span-16 box box_round">
+  <div class="box box_round">
     <%= form_for(@payment) do |f| %>
-      <strong>Create Payment</strong> <%= f.label :user_id, "From" %> 
-      <%= f.select :user_id, options_from_collection_for_select(@members, :id, :username) %>
-      <br />
+      <h3>Create Payment</h3>
+      <div class="span-6">
+        <%= f.label :invoice_id, "For" %><br />
+        <%= f.select :invoice_id, @invoices_for_select, :blank => true %>
+      </div>
+      <div class="span-6">
+        <%= f.label :amount %><br />
+        <%= f.text_field :amount %>
+      </div>
+      <div class="span-4 last">
+        <%= f.submit %>
+      </div>
     <% end %>
   </div>
+</div>
+
+<div class="span-20">
+  <%= render 'shared/invoices', :invoices => @paid_invoices, :show_username => true %>
 </div>

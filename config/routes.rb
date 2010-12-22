@@ -8,6 +8,7 @@ Nodewise::Application.routes.draw do
   #   get '/logout' => 'devise/sessions#destroy'
   # end
 
+  resources :payments, :only => [:create, :index]
   resources :users
   get '/members' => 'users#index', :as => :members
   match '/:username' => 'users#show', :as => :member

@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    Platform (0.4.0)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -29,6 +30,10 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     arel (2.0.6)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     bcrypt-ruby (2.1.2)
     builder (2.1.2)
     cancan (1.4.1)
@@ -156,9 +161,15 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
+    utility_belt (1.1.0)
+      Platform (>= 0.4.0)
+      aws-s3 (>= 0.4.0)
+      wirble (>= 0.1.2)
     warden (1.0.2)
       rack (>= 1.0.0)
     will_paginate (2.3.15)
+    wirble (0.1.3)
+    xml-simple (1.0.12)
     xpath (0.1.2)
       nokogiri (~> 1.3)
 
@@ -193,4 +204,5 @@ DEPENDENCIES
   spork
   texticle
   transitions
+  utility_belt
   will_paginate

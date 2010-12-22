@@ -24,6 +24,7 @@ group :development do
   gem 'ruby_parser'
   gem 'heroku'
   gem 'heroku_san'
+  gem 'utility_belt'
 end
 
 group :test do

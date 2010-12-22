@@ -1,3 +1,4 @@
+<% show_username ||= false %>
 <% if can? :read, Invoice %>
   <script>
     function show_invoices(count) {
@@ -28,24 +29,30 @@
     });
   </script>
   <strong>Invoices</strong>
-  <% if membership.invoices.count > 12 %>
+  <% if invoices.count > 12 %>
     <span style="display:inline-block; float: right;">
-      <%= link_to_function "all #{ membership.invoices.count }", "show_invoices(-1)", :id => 'show-all-invoices' %>
+      <%= link_to_function "all #{ invoices.count }", "show_invoices(-1)", :id => 'show-all-invoices' %>
       | <%= link_to_function "last 12", "show_invoices(12)", :id => 'show-12-invoices' %>
     </span> 
   <% end %>
   <table id="invoices">
     <tr>
-      <th> Reason </th>
-      <th> Amount </th>
-      <th> Due </th>
-      <th> Paid?  </th>
+      <% if show_username %>
+        <th>Member</th>
+      <% end %>
+      <th>Reason </th>
+      <th>Amount </th>
+      <th>Due </th>
+      <th>Paid?  </th>
       <th> </th>
     </tr>
-    <% membership.invoices.each_with_index do |invoice, count| %>
+    <% invoices.each_with_index do |invoice, count| %>
       <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= count %>">
-        <td><%= invoice.reason %></td>
-        <td><%= number_to_currency invoice.amount %></td>
+        <% if show_username %>
+          <td><%= invoice.membership.user.username %></td>
+        <% end %>                          
+        <td><%= invoice.reason %></td>     
+        <td><%= number_to_currency invoice .amount %></td>
         <td><%= invoice.due_by.strftime("%d %b %Y") %></td>
         <td><%= invoice.paid? %></td>
         <td>
