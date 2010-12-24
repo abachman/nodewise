@@ -1,6 +1,9 @@
 #user_controller.rb
 class UsersController < ApplicationController
+  before_filter :authenticate_user!
+
   before_filter :find_user, :only => [:show]
+  before_filter :load_payments_and_invoices_for_user
 
   load_and_authorize_resource
   

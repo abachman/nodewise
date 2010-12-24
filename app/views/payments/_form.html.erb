@@ -1,0 +1,20 @@
+<%= form_for(@payment, :remote => true) do |f| %>
+  <div class="form_section">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount, :size => 10, :value => invoice_amount %>
+  </div>
+
+  <div class="form_section">
+    <label>For Invoice</label><br />
+    <%= f.hidden_field :invoice_id, :value => invoice_id %>
+    <input type='text' value='<%= invoice_label %>' disabled='disabled' size="40" />
+  </div>
+
+  <div class="form_section">
+    <label>Fully Paid?
+      <input type='checkbox' checked='checked' name='fully_paid' value='1' />
+    </label>
+  </div>
+
+  <%= f.submit %>
+<% end %>

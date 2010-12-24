@@ -1,0 +1,10 @@
+var ir = $('#invoice-row-<%= @payment.invoice.id %>');
+ir.removeClass('unpaid');
+ir.find('.payment_date').text("<%= @payment.created_at.strftime("%Y-%m-%d") %>");
+ir.find('.controls').html('');
+
+$('#dialog-form').fadeOut(150);
+
+$('table#invoices').trigger('update');
+
+showMessage('success', "Successfully created payment.");

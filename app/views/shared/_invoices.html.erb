@@ -4,7 +4,51 @@
     <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.min' %>
     <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.pager' %>
     <link rel='stylesheet' type='text/css' href='/javascripts/libs/tablesorter/style.css' />
+    <style>
+      #dialog-form {
+        padding:10px;
+        position: absolute;
+        top:0;
+        left:0;
+        background: #fff;
+        border:4px solid black; 
+        width: 400px;
+        height: 300px;
+      }
+    </style>
     <script>
+      function loadDialog(url) {
+        var d    = $('#dialog-form'),
+            container = d.find('.form-container');
+
+        container.html("<h3>Loading...</h3>");
+        container.load(url);
+
+        d.show();
+
+        d.offset({
+          top: $(window).scrollTop() + 50,
+          left: ($(window).width() - d.width()) / 2
+        });
+
+        $('#dialog-close-link').click(function () {
+          $('#dialog-form').hide();
+        });
+      }
+
+      $(function () {
+        $('.pay-invoice').click(function(evt) {
+          var link = $(evt.target);
+          loadDialog("<%= new_payment_path %>?invoice_id=" + link.attr('data-attribute'));
+          return false;
+        });
+
+        $('.add-invoice').click(function(evt) {
+          loadDialog("<%= new_invoice_path %>");
+          return false;
+        });
+      });
+
       $(function () {
         $("#invoices").
           tablesorter({widthFixed: true, widgets: ['zebra']}).
@@ -12,7 +56,14 @@
       });
     </script>
 
-    <strong>Invoices</strong>
+    <% content_for :addendum do %>
+      <div id='dialog-form' style='display:none;'>
+        <div class='form-container'>
+          <h3>Loading...</h3>
+        </div>
+        <a href='javascript:void(0);' id='dialog-close-link'>Close</a>
+      </div>
+    <% end %>
 
     <div id="invoices-pager" class="clearfix">
       <form>
@@ -45,15 +96,15 @@
       </thead>
       <tbody>
         <% invoices.each_with_index do |invoice, count| %>
-          <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= count %>">
+          <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= invoice.id %>">
             <% if show_username %>
               <td><%= invoice.membership.user.username %></td>
             <% end %>                          
             <td><%= invoice.reason %></td>     
             <td><%= number_to_currency invoice .amount %></td>
             <td><%= invoice.due_by.strftime("%Y-%m-%d") %></td>
-            <td><%= invoice.payment.nil? ? '' : invoice.payment.created_at.strftime("%Y-%m-%d") %></td>
-            <td>
+            <td class='payment_date'><%= invoice.payment.nil? ? '' : invoice.payment.created_at.strftime("%Y-%m-%d") %></td>
+            <td class='controls'>
               <% if can?(:manage, Invoice) && !invoice.paid? %> 
                 <%= link_to "Notify", "#" %>
               <% end %>
@@ -61,7 +112,7 @@
                 |
               <% end %>
               <% if can?(:pay, invoice) && !invoice.paid? %>
-                <%= link_to "Pay", "#" %>
+                <%= link_to "Pay", new_payment_path(:invoice_id => invoice.id), :class => 'pay-invoice', :"data-attribute" => invoice.id %>
               <% end %>
             </td>
           </tr>
@@ -69,6 +120,7 @@
       </tbody>
     </table>
   </div>
+  <a href="javascript:void(0)" class="add-invoice">create an invoice</a>
 
   <br class="clearboth" />
 <% end %>

@@ -54,7 +54,7 @@
   <%= csrf_meta_tag %>
 </head>
 <body data-controller="<%= controller_name %>" data-action="<%= action_name %>">
-  <%= render :partial => 'shared/header' %>
+  <%= render 'shared/header' %>
 
   <div id="container" class='container'>
 
@@ -68,4 +68,6 @@
       track or contribute on <a href="https://github.com/abachman/nodewise">the nodewise github page</a>.
     </footer>
   </div> <!-- end of #container -->
+
+  <%= yield :addendum %>
 </body>

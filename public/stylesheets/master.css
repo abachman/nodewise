@@ -59,6 +59,13 @@ nav a.user span {
 }
 nav a.user img { margin-right: 5px; vertical-align: middle; }
 
+.flash_wrapper {
+  position: relative;
+  float:left;
+  left: 40px;
+  margin:0; padding:0;
+}
+
 .flash { padding: 7px 10px 5px; height: 19px; display: inline-block; vertical-align: middle; margin: 6px 0 0 30px; }
 #flash_error, #flash_alert { background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4; }
 #flash_notice {background:#fff6bf;color:#514721;border-color:#ffd324;}

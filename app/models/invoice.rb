@@ -18,6 +18,14 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.by_username
-    joins({:membership => :user}).order('users.username')
+    joins(:membership => :user).order('users.username')
+  end
+
+  def self.for_user user
+    joins(:membership => :user).where(['users.id = ?', user.id])
+  end
+
+  def label
+    "%s, %s, %s" % [membership.user.full_name, reason, due_by.strftime("%d %b %Y")]
   end
 end

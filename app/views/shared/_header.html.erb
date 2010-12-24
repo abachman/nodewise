@@ -3,9 +3,11 @@
     <header class='span-24 last'>
       <h2><%= link_to "nodewise", root_url %></h2> 
 
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :span, msg, :class => "flash", :id => "flash_#{name}" if msg.is_a?(String) %>
-      <%- end -%>
+      <div class='flash_wrapper'>
+        <%- flash.each do |name, msg| -%>
+          <%= content_tag :span, msg, :class => "flash", :id => "flash_#{name}" if msg.is_a?(String) %>
+        <%- end -%>
+      </div>
 
       <nav>
         <ul class="main_nav">

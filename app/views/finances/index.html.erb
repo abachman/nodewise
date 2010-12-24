@@ -7,28 +7,8 @@
     });
   });
 </script>
-<div class="span-20">
-  <h1>Finances</h1>
-
-  <div class="box box_round clearfix">
-    <%= form_for(@payment) do |f| %>
-      <h3>Create Payment</h3>
-      <table>
-        <tr>
-          <td><%= f.label :invoice_id, "For" %></td>
-          <td><%= f.label :amount %></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><%= f.select :invoice_id, @invoices_for_select, :blank => true %></td>
-          <td><%= f.text_field :amount %></td>
-          <td><%= f.submit %></td>
-        </tr>
-      </table>
-    <% end %>
-  </div>
-</div>
 
 <div class="span-20">
+  <h3>Invoices</h3>
   <%= render 'shared/invoices', :invoices => @invoices, :show_username => true %>
 </div>
