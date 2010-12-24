@@ -1,4 +1,6 @@
 <%= form_for(@payment, :remote => true) do |f| %>
+  <div class="error-messages error" style='display:none'></div>
+
   <div class="form_section">
     <%= f.label :amount %><br />
     <%= f.text_field :amount, :size => 10, :value => invoice_amount %>
@@ -14,6 +16,11 @@
     <label>Fully Paid?
       <input type='checkbox' checked='checked' name='fully_paid' value='1' />
     </label>
+  </div>
+
+  <div class="form_section">
+    <%= f.label :note, "Comment" %><br />
+    <%= f.text_field :note, :size => 40 %>
   </div>
 
   <%= f.submit %>

@@ -1,1 +1,1 @@
-<%= render 'form', :membership_id => @membership.try(:id) %>
+<%= render 'form', :membership_id => @membership.try(:id), :amount => @membership.try(:monthly_fee) %>

@@ -2,6 +2,10 @@ class Invoice < ActiveRecord::Base
   belongs_to :membership, :include => :user
   has_one :payment
 
+  validates_presence_of :amount
+  validates_presence_of :membership_id
+  validates_presence_of :due_by
+
   DUES = "dues"
   WORKSHOP = "workshop"
   DONATION = "donation"

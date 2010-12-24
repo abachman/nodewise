@@ -122,9 +122,12 @@ tr.unpaid td { background-color: #fee !important; }
   width: 400px;
 }
 
+#dialog-form .error-messages {
+  margin-top: 8px;
+}
+
 #dialog-form .form-container {
   padding:0 10px;
-  height: 280px;
 }
 #dialog-form .controls {
   padding: 6px 10px;
@@ -139,4 +142,7 @@ tr.unpaid td { background-color: #fee !important; }
 
 #dialog-form .controls a {
   float: right;
+}
+#dialog-form form input[type=submit] {
+  margin-bottom: 14px;
 }

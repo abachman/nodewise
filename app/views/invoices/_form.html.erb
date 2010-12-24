@@ -1,4 +1,5 @@
 <%= form_for(@invoice, :remote => true) do |f| %>
+  <div class="error-messages error" style='display:none'></div>
   <%= hidden_field nil, "show_username", :value => params[:show_username] %>
   
   <div class="form_section">
