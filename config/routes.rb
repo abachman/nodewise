@@ -9,6 +9,8 @@ Nodewise::Application.routes.draw do
   # end
 
   resources :payments, :only => [:create, :index, :new]
+  resources :invoices, :only => [:create, :new]
+
   resources :users
   get '/members' => 'users#index', :as => :members
   match '/:username' => 'users#show', :as => :member
