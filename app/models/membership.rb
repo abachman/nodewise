@@ -53,4 +53,10 @@ class Membership < ActiveRecord::Base
     
     DateTime.new after_date.year, after_date.month, PAYMENT_DUE_ON
   end
+
+  def self.users_for_select
+    joins(:user).order('users.full_name').map do |m|
+      [m.user.full_name, m.id]
+    end
+  end
 end

@@ -1,0 +1,10 @@
+var invoice_table = $('#invoices');
+invoice_table.append("<%= escape_javascript(render('invoices/row', :invoice => @invoice, :show_username => show_username)) %>");
+addPayLinkBehavior();
+
+// meta
+$('#dialog-form').fadeOut(150);
+
+$('table#invoices').trigger('update');
+
+showMessage('success', "Successfully created invoice.");

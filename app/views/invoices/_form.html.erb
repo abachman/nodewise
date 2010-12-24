@@ -1,0 +1,25 @@
+<%= form_for(@invoice, :remote => true) do |f| %>
+  <%= hidden_field nil, "show_username", :value => params[:show_username] %>
+  
+  <div class="form_section">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount, :size => 10, :value => @membership.try(:monthly_fee) %>
+  </div>
+
+  <div class='form_section'>
+    <%= f.label :due_by %><br />
+    <%= f.date_select :due_by, :default => Membership.next_payment_date %>
+  </div>
+
+  <div class="form_section">
+    <%= f.label :reason %><br />
+    <%= f.select :reason, Invoice.reasons_for_select, :blank => true%>
+  </div>
+
+  <div class="form_section">
+    <%= f.label :membership_id, "Member" %><br />
+    <%= f.select :membership_id, options_for_select(Membership.users_for_select, @membership.try(:id)), { :include_blank => true } %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

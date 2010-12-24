@@ -7,7 +7,8 @@ class Ability
     if user.is? :admin
       can :manage, User
       can :read, :all 
-      can [:read, :edit, :update, :change_status], Membership
+      can [:edit, :update, :change_status], Membership
+      can [:create, :read], Invoice
       # can [:edit, :update], Membership, :user_id => user.id
     end
 
@@ -21,14 +22,15 @@ class Ability
 
     can :read, Membership, :user_id => user.id
 
-    can [:pay, :read], Invoice, :membership_id => user.membership.id
-
-    can :create, Payment
-    can :read, Payment do |payment|
-      user.membership.invoices.select {|inv|
-        inv.payment.id == payment.id
-      }.size > 0
-    end
+    can :read, Invoice, :membership_id => user.membership.id
+    ## ONLY WHEN WE HAVE MERCHANT APIs
+    # can [:pay, :read], Invoice, :membership_id => user.membership.id
+    # can :create, Payment
+    # can :read, Payment do |payment|
+    #   user.membership.invoices.select {|inv|
+    #     inv.payment.id == payment.id
+    #   }.size > 0
+    # end
 
     can :manage, User, :id => user.id
     can :read, User

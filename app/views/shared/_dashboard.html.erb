@@ -1,10 +1,5 @@
 <div class="span-20">
-  <h2 class="lead">Billing History</h2>
-  <%= render 'shared/invoices', :invoices => current_user.membership.invoices %>
-
-  <h2>Voting History</h2>
-
-  <h2>Your Information
+  <h2 class="lead">Your Information
   <%= image_tag current_user.gravatar_url, :style => 'float: right' %></h2>
 
   <table>
@@ -30,6 +25,12 @@
       <td><%= link_to member_url(current_user.username), member_url(current_user.username) %></td>
     </tr>
   </table>
+
+  <h2>Billing History</h2>
+  <%= render 'shared/invoices', :invoices => current_user.membership.invoices %>
+
+  <h2>Voting History</h2>
+
 </div>
 
 <div class="span-4 last">

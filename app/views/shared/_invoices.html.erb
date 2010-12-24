@@ -4,23 +4,12 @@
     <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.min' %>
     <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.pager' %>
     <link rel='stylesheet' type='text/css' href='/javascripts/libs/tablesorter/style.css' />
-    <style>
-      #dialog-form {
-        padding:10px;
-        position: absolute;
-        top:0;
-        left:0;
-        background: #fff;
-        border:4px solid black; 
-        width: 400px;
-        height: 300px;
-      }
-    </style>
     <script>
-      function loadDialog(url) {
+      function loadDialog(url, title) {
         var d    = $('#dialog-form'),
             container = d.find('.form-container');
 
+        d.find('.title').text(title);
         container.html("<h3>Loading...</h3>");
         container.load(url);
 
@@ -36,15 +25,27 @@
         });
       }
 
-      $(function () {
+      function addPayLinkBehavior() {
         $('.pay-invoice').click(function(evt) {
           var link = $(evt.target);
-          loadDialog("<%= new_payment_path %>?invoice_id=" + link.attr('data-attribute'));
+          loadDialog(
+            "<%= new_payment_path %>?invoice_id=" + link.attr('data-attribute'), 
+            "New Payment"
+          );
           return false;
         });
+      }
+
+      $(function () {
+        addPayLinkBehavior();
 
         $('.add-invoice').click(function(evt) {
-          loadDialog("<%= new_invoice_path %>");
+          var link = $(evt.target);
+          loadDialog(
+            "<%= new_invoice_path %>?membership_id=" + link.attr('data-attribute') +
+              "&show_username=<%= show_username ? '1' : '0' %>", 
+            "Create Invoice"
+          );
           return false;
         });
       });
@@ -58,10 +59,13 @@
 
     <% content_for :addendum do %>
       <div id='dialog-form' style='display:none;'>
+        <div class='controls clearfix'>
+          <span class='title'></span>
+          <a href='javascript:void(0);' id='dialog-close-link' style='position:relative;bottom:0px'>Close</a>
+        </div>
         <div class='form-container'>
           <h3>Loading...</h3>
         </div>
-        <a href='javascript:void(0);' id='dialog-close-link'>Close</a>
       </div>
     <% end %>
 
@@ -78,6 +82,8 @@
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
+        &nbsp;|&nbsp;
+        <a href="javascript:void(0)" class="add-invoice" data-attribute='<%= @membership.try(:id) %>'>create an invoice</a>
       </form>
     </div>
 
@@ -91,36 +97,18 @@
           <th>Amount</th>
           <th>Due</th>
           <th>Paid</th>
-          <th>Options</th>
+          <% if can?(:manage, Invoice) || can?(:pay, Invoice) %>
+            <th>Options</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
-        <% invoices.each_with_index do |invoice, count| %>
-          <tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= invoice.id %>">
-            <% if show_username %>
-              <td><%= invoice.membership.user.username %></td>
-            <% end %>                          
-            <td><%= invoice.reason %></td>     
-            <td><%= number_to_currency invoice .amount %></td>
-            <td><%= invoice.due_by.strftime("%Y-%m-%d") %></td>
-            <td class='payment_date'><%= invoice.payment.nil? ? '' : invoice.payment.created_at.strftime("%Y-%m-%d") %></td>
-            <td class='controls'>
-              <% if can?(:manage, Invoice) && !invoice.paid? %> 
-                <%= link_to "Notify", "#" %>
-              <% end %>
-              <% if can?([:manage, :pay], Invoice) && !invoice.paid? %>
-                |
-              <% end %>
-              <% if can?(:pay, invoice) && !invoice.paid? %>
-                <%= link_to "Pay", new_payment_path(:invoice_id => invoice.id), :class => 'pay-invoice', :"data-attribute" => invoice.id %>
-              <% end %>
-            </td>
-          </tr>
+        <% invoices.each do |invoice| %>
+          <%= render 'invoices/row', :invoice => invoice, :show_username => show_username %>
         <% end %>
       </tbody>
     </table>
   </div>
-  <a href="javascript:void(0)" class="add-invoice">create an invoice</a>
 
   <br class="clearboth" />
 <% end %>

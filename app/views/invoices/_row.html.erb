@@ -1,0 +1,22 @@
+<tr class="invoice-row <%= 'unpaid' unless invoice.paid? %>" id="invoice-row-<%= invoice.id %>">
+  <% if show_username %>
+    <td><%= invoice.membership.user.username %></td>
+  <% end %>                          
+  <td><%= invoice.reason %></td>     
+  <td><%= number_to_currency invoice.amount %></td>
+  <td><%= invoice.due_by.strftime("%Y-%m-%d") %></td>
+  <td class='payment_date'><%= invoice.payment.nil? ? '' : invoice.payment.created_at.strftime("%Y-%m-%d") %></td>
+  <% if can?(:manage, Invoice) || can?(:pay, Invoice) %>
+    <td class='controls'>
+      <% if can?(:manage, Invoice) && !invoice.paid? %> 
+        <%= link_to "Notify", "#" %>
+      <% end %>
+      <% if can?([:manage, :pay], Invoice) && !invoice.paid? %>
+        |
+      <% end %>
+      <% if can?(:pay, invoice) && !invoice.paid? %>
+        <%= link_to "Pay", new_payment_path(:invoice_id => invoice.id), :class => 'pay-invoice', :"data-attribute" => invoice.id %>
+      <% end %>
+    </td>
+  <% end %>
+</tr>
