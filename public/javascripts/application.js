@@ -47,8 +47,6 @@ UTIL = {
 };
 
 $(document).ready(UTIL.init);
-$(document).ready(function () {
-});
 
 function showFlashMessage(flash, delay) {
   if (_.isUndefined(delay)) {
@@ -57,7 +55,7 @@ function showFlashMessage(flash, delay) {
   flash.show().
     addClass('box_round').
     addClass('box_shadow').
-    css({textAlign:'center', width:'300px', zIndex:'1000'}).
+    css({textAlign:'center', zIndex:'1000'}).
     offset({
       top: $(window).scrollTop()+ 5,
       left: ($(window).width() - flash.width()) / 2

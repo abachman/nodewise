@@ -5,18 +5,18 @@
 
       <div class='flash_wrapper'>
         <%- flash.each do |name, msg| -%>
-          <%= content_tag :span, msg, :class => "flash", :id => "flash_#{name}" if msg.is_a?(String) %>
+          <%= content_tag :span, msg, :style => 'display:none', :class => "flash", :id => "flash_#{name}" if msg.is_a?(String) %>
         <%- end -%>
       </div>
 
       <nav>
         <ul class="main_nav">
+          <li><%= link_to "Members", members_path %></li>
           <% if user_signed_in? %>
-            <li><%= link_to "Members", members_path %></li>
             <% if can?(:manage, Invoice) %>
               <li><%= link_to "Finances", finances_path %></li>
             <% end %>
-            <li><%= link_to "Voting", "#" %></li>
+            <li><%= link_to_function "Voting", "showMessage('error', 'Not yet!')" %></li>
             <li><%= link_to "Sign out", destroy_user_session_path %></li>
           <% else %>
             <li><%= link_to "Sign in", new_user_session_path %></li>

@@ -36,6 +36,37 @@ class InvoicesController < ApplicationController
   def generate
   end
 
+  # like "delete"
+  def cancel
+    @invoice.destroy
+  end
+
+  def send_reminder
+    @user = @invoice.membership.user
+    UserMailer.dues_reminder(@user).deliver
+    Notification.create! :invoice_id => @invoice.id, :cause => Notification::REMINDER
+    respond_to do |format|
+      format.html { 
+        flash[:success] = "Successfully sent email to #{ @user.email }"
+        redirect_to params[:return_to] || members_path 
+      }
+      format.js # templated
+    end
+  end
+
+  def send_overdue
+    @user = @invoice.membership.user
+    UserMailer.dues_overdue(@user).deliver
+    Notification.create! :invoice_id => @invoice.id, :cause => Notification::OVERDUE
+    respond_to do |format|
+      format.html {
+        flash[:success] = "Successfully sent email to #{ @user.email }"
+        redirect_to params[:return_to] || members_path
+      }
+      format.js # templated
+    end
+  end
+
 protected
   def authorized_redirect
     if can? :manage, Invoice

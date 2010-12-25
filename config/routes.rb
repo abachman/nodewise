@@ -9,9 +9,20 @@ Nodewise::Application.routes.draw do
   # end
 
   resources :payments, :only => [:create, :index, :new]
-  resources :invoices, :only => [:create, :new]
+  resources :invoices, :only => [:create, :new] do
+    member do
+      post :cancel
+      post :send_overdue
+      post :send_reminder
+    end
+
+    collection do
+      post :generate
+    end
+  end
 
   resources :users
+
   get '/members' => 'users#index', :as => :members
   match '/:username' => 'users#show', :as => :member
 

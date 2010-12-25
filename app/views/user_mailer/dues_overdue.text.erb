@@ -1,6 +1,6 @@
-Your current membership dues payment is overdue. It should have been paid by
-<%= @user.membership.invoices.last.due_by %>. You can pay your dues online at
-http://baltimorenode.org.
+Hey! Your current membership dues payment is overdue. It should have been paid by
+<%= @user.membership.invoices.last.due_by.strftime("%d %b %Y") %>. You can pay
+your dues online at http://baltimorenode.org.
 
 Please do not be angry at me, I was programmed to say this.
 

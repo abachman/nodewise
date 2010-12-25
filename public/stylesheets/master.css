@@ -27,7 +27,7 @@ form table { margin-bottom:1.4em;width:100%; }
 /* HEADER */
 #header_container { height: 46px; margin-bottom: 12px; }
 #header_container h2 {
-  color: #fff; 
+  color: #fff;
   float: left;
   padding-top: 10px;
   font-size: 28px;
@@ -69,7 +69,7 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 .flash { padding: 7px 10px 5px; height: 19px; display: inline-block; vertical-align: middle; margin: 6px 0 0 30px; }
 #flash_error, #flash_alert { background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4; }
 #flash_notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
-#flash_success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+#flash_success {background:#deffd6;color:#264409;border-color:#c6d880;}
 #flash_info {background:#d5edf8;color:#205791;border-color:#92cae4;}
 #flash_error a, #flash_alert a {color:#8a1f11;}
 #flash_notice a {color:#514721;}
@@ -90,13 +90,13 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 
 .sidenav ul {
   list-style-type: none;
-  margin: 0; 
+  margin: 0;
   padding: 0;
   border: none;
 }
 .sidenav li {
   list-style-type: none;
-  margin: 0; 
+  margin: 0;
   padding: 0;
   border: none;
   line-height: 1.2em;
@@ -118,7 +118,7 @@ tr.unpaid td { background-color: #fee !important; }
   top:0;
   left:0;
   background: #fff;
-  border:4px solid black; 
+  border:4px solid black;
   width: 400px;
 }
 

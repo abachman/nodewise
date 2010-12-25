@@ -7,11 +7,11 @@ class AddFieldsToUsers < ActiveRecord::Migration
     add_column :users, :username,     :string
     add_column :users, :status,       :string
     add_column :users, :roles_mask,   :integer
-    add_column :users, :send_dues_notification, :boolean
+    add_column :users, :display_publicly, :boolean, :default => false
   end
 
   def self.down
-    remove_column :users, :send_dues_notification
+    remove_column :users, :display_publicly
     remove_column :users, :roles_mask
     remove_column :users, :status
     remove_column :users, :username

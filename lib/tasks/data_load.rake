@@ -54,7 +54,8 @@ def create_active_member(tag)
     :password_confirmation => 'password',
     :full_name             => "Hackerspace Member#{ tag }",
     :username              => "member#{tag}",
-    :bio                   => get_bio
+    :bio                   => get_bio,
+    :display_publicly      => rand() > 0.5
   )
   user.roles = [:member]
   user.skip_confirmation!

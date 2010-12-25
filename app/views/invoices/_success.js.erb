@@ -1,4 +1,4 @@
-var invoice_table = $('#invoices');
+var invoice_table = $('#invoices tbody');
 invoice_table.append("<%= escape_javascript(render('invoices/row', :invoice => @invoice, :show_username => show_username)) %>");
 addPayLinkBehavior();
 

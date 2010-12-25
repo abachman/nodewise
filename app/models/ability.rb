@@ -13,6 +13,7 @@ class Ability
     end
 
     if user.is? :treasurer
+      can :send_overdue, User
       can :manage, Membership
       can :change_fee, Membership
       can :manage, Invoice

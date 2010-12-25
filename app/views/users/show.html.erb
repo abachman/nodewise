@@ -2,7 +2,10 @@
 <div class="span-24 full_profile">
 
   <div class="head">
-    <h1><%= @user.full_name %></h1>
+    <h1><%= @user.username %></h1>
+    <% if user_signed_in? %>
+      <h3><%= @user.full_name %></h3>
+    <% end %>
     <% if @user.membership.active? || @user.membership.suspended? %>
       <em>member since <%= @user.membership.member_since.strftime("%d %b %Y") %></em>
     <% elsif @user.membership.inactive? %>
@@ -20,17 +23,19 @@
     <%= raw @user.rendered_bio %>
   </div>
 
-  <div class="push-4 span-4 last">
-    <% if can? :modify, @user %>
-      <%= link_to "Edit profile", edit_user_path(:id => @user.id) %>
-      <br />
-    <% end %>
+  <% if user_signed_in? %>
+    <div class="push-4 span-4 last">
+      <% if can? :modify, @user %>
+        <%= link_to "Edit profile", edit_user_path(:id => @user.id) %>
+        <br />
+      <% end %>
 
-    <% if can? :edit, @user.membership %>
-      <%= link_to "Edit membership", edit_membership_path(@user.membership) %>
-      <br />
-    <% end %>
-  </div>
+      <% if can? :edit, @user.membership %>
+        <%= link_to "Edit membership", edit_membership_path(@user.membership) %>
+        <br />
+      <% end %>
+    </div>
+  <% end %>
 
 </div>
 <br class='clearfix' />

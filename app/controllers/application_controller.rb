@@ -11,8 +11,9 @@ class ApplicationController < ActionController::Base
     if @user.nil?
       @user = current_user
     end
-    @invoices = Invoice.for_user(@user).order("due_by, users.username")
-    @unpaid_invoices = Invoice.unpaid.for_user(@user).order('due_by, users.username')
+    @membership = @user.membership
+    @invoices = @membership.invoices.joins(:membership => :user).order("due_by, users.username")
+    @unpaid_invoices = @invoices.unpaid
     @invoices_for_select = @unpaid_invoices.map {|i|
       [i.label, i.id]
     }

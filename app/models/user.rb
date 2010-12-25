@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model. All other fields
   # e.g., `admin` must be set manually.
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :bio, :links, :full_name, :image_url, :username
+                  :bio, :links, :full_name, :image_url, :username, :receive_notifications,
+                  :display_publicly
 
   has_one :membership
   
@@ -58,6 +59,10 @@ class User < ActiveRecord::Base
 
   def self.with_username name
     where(['LOWER(username) = LOWER(?)', name]).first
+  end
+
+  def self.public
+    where :display_publicly => true
   end
 
 protected

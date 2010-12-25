@@ -4,7 +4,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.decimal  :amount
       t.string   :reason
       t.datetime :due_by
-      t.boolean  :paid
+      t.boolean  :paid, :null => false, :default => false
       t.integer  :membership_id, :null => false
 
       t.timestamps

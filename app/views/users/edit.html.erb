@@ -55,6 +55,16 @@
         </ul>
       </div>
     <% end %>
+
+    <div class="form_section">
+      <%= f.check_box :receive_notifications %>
+      <%= f.label :receive_notifications, "Receive Notifications?" %>
+      <i>Pending invoice notifications are sent two days before the payment is due.</i>
+      <br />
+      <%= f.check_box :display_publicly %> 
+      <%= f.label :display_publicly, "Allow public access to your profile?" %>
+      <i>Public profiles can be seen by people and robots who are not logged in.</i>
+    </div>
   </div>
 
   <div class="span-24">

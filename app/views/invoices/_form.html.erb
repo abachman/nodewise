@@ -19,7 +19,12 @@
 
   <div class="form_section">
     <%= f.label :membership_id, "Member" %><br />
-    <%= f.select :membership_id, options_for_select(Membership.users_for_select, @membership.try(:id)), { :include_blank => true } %>
+    <% if @membership.nil? %>
+      <%= f.select(:membership_id, Membership.users_for_select, { :include_blank => true }) %>
+    <% else %>
+      <input type='text' size='30' disabled='disabled' value='<%= @membership.user.full_name %>' />
+      <%= f.hidden_field :membership_id, :value => @membership.id %>
+    <% end %>
   </div>
 
   <%= f.submit %>

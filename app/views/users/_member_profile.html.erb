@@ -11,10 +11,12 @@
       <em>not yet active</em>
     <% end %>
 
-    <div id ='edit_member_<%= user.id %>'>
-      <% if can?(:modify, user.membership) %>
-        <%= link_to "Edit membership", edit_membership_path(user.membership) %>
-      <% end %>
-    </div>
+    <% if user_signed_in? %>
+      <div id ='edit_member_<%= user.id %>'>
+        <% if can?(:modify, user.membership) %>
+          <%= link_to "Edit membership", edit_membership_path(user.membership) %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
