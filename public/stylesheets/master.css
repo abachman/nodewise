@@ -88,20 +88,17 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 .full_profile .head h1 { margin-bottom: 2px; }
 .full_profile .head { margin-bottom: 24px; }
 
-.sidenav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-.sidenav li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: none;
-  line-height: 1.2em;
-  font-size: 1.2em;
-}
+.sidenav ul { list-style-type: none; margin: 0; padding: 0; border: none; }
+.sidenav li { list-style-type: none; margin: 0; padding: 0; border: none; line-height: 1.2em; font-size: 1.2em; }
+
+.heading_navlist ul { list-style-type: none; margin: 0; padding: 0; border: none;}
+.heading_navlist li { list-style-type: none; margin:0; padding: 0 0 0 10px; border: none; line-height: 1.2em; font-size: 1.2em; float:left; }
+
+table .subhead { font-weight: bold; border-bottom: 1px solid #666; }
+table .summary { font-weight: bold; border-top: 1px solid #aaa; }
+td.unpaid { background-color: #fee !important; }
+
+#report_links { margin-bottom: 16px; }
 
 /* FOOTER */
 footer { margin: 2px auto 20px; text-align: center; width: 800px; color: #777; }

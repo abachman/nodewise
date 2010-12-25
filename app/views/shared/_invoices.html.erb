@@ -53,7 +53,7 @@
       $(function () {
         $("#invoices").
           tablesorter({widthFixed: true, widgets: ['zebra']}).
-          tablesorterPager({container: $('#invoices-pager'), positionFixed: false, size:25}); 
+          tablesorterPager({container: $('#invoices-pager'), positionFixed: false, size: 10}); 
       });
     </script>
 
@@ -68,6 +68,9 @@
         </div>
       </div>
     <% end %>
+    <div class='span-20'>
+      <a href='javascript:void(0)'>All</a> | <a href="javascript:void(0)">Unpaid</a>
+    </div>
 
     <div id="invoices-pager" class="clearfix">
       <form>
@@ -77,8 +80,8 @@
         <img src="/javascripts/libs/tablesorter/next.png" class="next"/>
         <img src="/javascripts/libs/tablesorter/end.png" class="last"/>
         <select class="pagesize">
-          <option value="10">10</option>
-          <option selected="selected" value="25">25</option>
+          <option selected="selected" value="10">10</option>
+          <option value="25">25</option>
           <option value="50">50</option>
           <option value="100">100</option>
         </select>

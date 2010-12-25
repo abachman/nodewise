@@ -18,6 +18,7 @@ Nodewise::Application.routes.draw do
 
     collection do
       post :generate
+      get :report
     end
   end
 

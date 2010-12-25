@@ -67,6 +67,10 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def report
+    @from_date = params[:from_date].nil? ? nil : DateTime.parse(params[:from_date]) 
+  end
+
 protected
   def authorized_redirect
     if can? :manage, Invoice

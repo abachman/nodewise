@@ -16,7 +16,7 @@
             <% if can?(:manage, Invoice) %>
               <li><%= link_to "Finances", finances_path %></li>
             <% end %>
-            <li><%= link_to_function "Voting", "showMessage('error', 'Not yet!')" %></li>
+            <li><%= link_to_function "Voting", raw("showMessage('error', '<strong>exception</strong> NotImplemented ERROR DETECTED <strong>exception</strong>')") %></li>
             <li><%= link_to "Sign out", destroy_user_session_path %></li>
           <% else %>
             <li><%= link_to "Sign in", new_user_session_path %></li>

@@ -15,14 +15,20 @@ class Invoice < ActiveRecord::Base
   BEVERAGE_FUND = "beverage fund"
   PAYMENT = "payment"
 
+  REASONS = [DUES, WORKSHOP, DONATION, BEVERAGE_FUND, PAYMENT]
+
   def self.reasons_for_select
-    [DUES, WORKSHOP, DONATION, BEVERAGE_FUND, PAYMENT].map do |reason|
+    REASONS.map do |reason|
       [reason.titleize, reason]
     end
   end
 
+  def self.paid
+    where :paid => true
+  end
+
   def self.unpaid
-    where(['paid IS NULL OR paid = ?', false])
+    where :paid => false
   end
 
   def self.by_username
@@ -31,6 +37,18 @@ class Invoice < ActiveRecord::Base
 
   def self.for_user user
     joins(:membership => :user).where(['users.id = ?', user.id])
+  end
+
+  def self.for_reason reason
+    where 'reason = ?', reason
+  end
+
+  def self.total
+    group(:reason).select('sum(amount) as amount').first.try(:amount)
+  end
+
+  def self.from_date dtime
+    where 'due_by > ?', dtime.to_date
   end
 
   def self.send_reminders

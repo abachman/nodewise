@@ -1,0 +1,27 @@
+<% from_date ||= DateTime.new(1910, 01, 01) %>
+<table>
+  <thead>
+    <tr>
+      <th>Reason</th>
+      <th>Paid</th>
+      <th>Unpaid</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Invoice::REASONS.each do |reason| %>
+      <tr>
+        <td><%= reason.titleize %></td>
+        <td><%= number_to_currency( Invoice.from_date(from_date).paid.for_reason(reason).total || 0 ) %></td>
+        <td class='unpaid'><%= number_to_currency( Invoice.from_date(from_date).unpaid.for_reason(reason).total || 0 ) %></td>
+        <td><%= number_to_currency( Invoice.from_date(from_date).for_reason(reason).total || 0 ) %></td>
+      </tr>
+    <% end %>
+    <tr class='summary'>
+      <td>All Reasons</td>
+      <td><%= number_to_currency Invoice.from_date(from_date).paid.total %></td>
+      <td class='unpaid'><%= number_to_currency Invoice.from_date(from_date).unpaid.total %></td>
+      <td><%= number_to_currency Invoice.from_date(from_date).total %></td>
+    </tr>
+  </tbody>
+</table>

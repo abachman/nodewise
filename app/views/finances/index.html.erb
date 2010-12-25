@@ -9,6 +9,51 @@
 </script>
 
 <div class="span-20">
-  <h3>Invoices</h3>
+  <h2 class="lead">Invoices</h2>
   <%= render 'shared/invoices', :invoices => @invoices, :show_username => true %>
+
+  <h2>Reports</h2>
+
+  <script>
+    function linkToReport(text, date) {
+      $('#invoice_report_status').show();
+      $.ajax({
+        url: '<%= report_invoices_path %>',
+        data: {from_date: date, link: text},
+        dataType: 'script',
+        success: function () {
+          $('#invoice_report_status').fadeOut();
+
+          // reset all
+          $("#report_links a").show();
+          $("#report_links .label").hide();
+
+          // set specific
+          $("#report_links a:contains('"+ text +"')").hide();
+          $("#report_links .label:contains('"+ text +"')").show();
+        }
+      });
+      return false;
+    }
+
+    $(function () {
+      linkToReport('All', '1910-01-01');
+    });
+  </script>
+
+  <div id='report_links'>
+    <% [["All", (DateTime.now - 1000.months)],
+        ["1 month", (DateTime.now - 1.months)],
+        ["3 months", (DateTime.now - 3.months)],
+        ["6 months", (DateTime.now - 6.months)],
+        ["12 months", (DateTime.now - 12.months)],
+        ["YTD", DateTime.new(DateTime.now.year, 1, 1)]].each do |link_text, date| %>
+      <%= link_to_function link_text, "linkToReport('#{link_text}', '#{date.strftime("%Y-%m-%d")}')" %>
+      <span class='label' style='display:none'><%= link_text %></span>
+    <% end %>
+    <span id='invoice_report_status' style='display:none'>Loading...</span>
+  </div>
+
+  <div id="invoice_report">
+  </div>
 </div>
