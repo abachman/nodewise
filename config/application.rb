@@ -40,3 +40,4 @@ module Nodewise
     config.filter_parameters += [:password]
   end
 end
+
