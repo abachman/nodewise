@@ -26,7 +26,7 @@
     </tr>
   </table>
 
-  <% if can?(:approve, User) && Membership.preactive.count > 0 %>
+  <% if can?(:activate, Membership) && Membership.preactive.count > 0 %>
     <h2>Approve New Users</h2>
 
     <table>
