@@ -45,8 +45,12 @@
             <td><%= link_to user_path(membership.user.username), user_path(membership.user.username) %></td>
             <td><%= membership.created_at.strftime("%Y-%m-%d") %></td>
             <td>
-              <%= link_to "edit", edit_membership_path(membership) %>
+              <%= link_to "edit membership", edit_membership_path(membership) %>
               |
+              <% if can? :edit, membership.user %>
+                <%= link_to "edit user", edit_user_path(membership) %>
+                |
+              <% end %>
               <%= link_to "approve", activate_membership_path(membership), :method => :post, :confirm => 'Are you sure you want to approve this member?' %>
             </td>
           </tr>

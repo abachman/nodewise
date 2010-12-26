@@ -16,12 +16,13 @@ namespace :data do
     # Admin
     puts "load admin"
     user = User.new(
-      :email                 => "admin@email.com",
+      :email                 => "admin@example.com",
       :password              => "password",
       :password_confirmation => 'password',
       :full_name             => "Hackerspace Admin",
       :username              => "administrator",
-      :bio                   => "I am the most powerful user in the system."
+      :bio                   => "I am the most powerful user in the system.",
+      :receive_notifications => false
     )
     user.roles = [:admin, :member]
     user.skip_confirmation!
@@ -32,12 +33,13 @@ namespace :data do
     # Treasurer
     puts "load treasurer"
     user = User.new(
-      :email                 => "treasurer@email.com",
+      :email                 => "treasurer@example.com",
       :password              => "password",
       :password_confirmation => 'password',
       :full_name             => "Hackerspace Treasurer",
       :username              => "treasurer",
-      :bio                   => "I control the **money**."
+      :bio                   => "I control the **money**.",
+      :receive_notifications => false
     )
     user.roles = [:treasurer, :member]
     user.skip_confirmation!
@@ -49,13 +51,14 @@ end
 
 def create_active_member(tag)
   user = User.new(
-    :email                 => "member#{ tag }@email.com",
+    :email                 => "member#{ tag }@example.com",
     :password              => "password",
     :password_confirmation => 'password',
     :full_name             => "Hackerspace Member#{ tag }",
     :username              => "member#{tag}",
     :bio                   => get_bio,
-    :display_publicly      => rand() > 0.5
+    :display_publicly      => rand() > 0.5, 
+    :receive_notifications => false
   )
   user.roles = [:member]
   user.skip_confirmation!

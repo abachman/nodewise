@@ -1,4 +1,3 @@
-require 'role_model'
 require 'md5'
 
 class User < ActiveRecord::Base
@@ -24,6 +23,8 @@ class User < ActiveRecord::Base
   end
 
   after_create :generate_membership
+  after_create :notify_admins
+
   def generate_membership
     if membership.nil?
       membership = Membership.new(
@@ -31,9 +32,11 @@ class User < ActiveRecord::Base
       )
       membership.user_id = self.id
       membership.save
-    else 
-      true
     end
+  end
+
+  def notify_admins
+    UserMailer.user_created(self).deliver
   end
 
   # Include default devise modules. Others available are:
@@ -76,6 +79,19 @@ class User < ActiveRecord::Base
 
   def self.public
     where :display_publicly => true
+  end
+
+  # not an Arel relation!
+  def self.admins
+    all.select {|u| u.has_role? :admin}
+  end
+
+  def self.having_role role
+    if User.valid_roles.include? role
+      where "roles_mask & :role = :role", {:role => User.mask_for(role)}
+    else
+      where "1=0"
+    end
   end
 
 protected

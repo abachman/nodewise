@@ -26,12 +26,13 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
+  # this is how a person becomes a member! they grow up so fast...
   def activate
     @membership.activate!
     @membership.generate_dues_invoice
+    _user = @membership.user
+    _user.roles = [:member]
+    _user.save
     flash[:success] = "Successfully activated #{ @membership.user.full_name }"
     redirect_to '/'
   end

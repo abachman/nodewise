@@ -59,6 +59,10 @@ class Membership < ActiveRecord::Base
     joins(:user).order('users.username').where :state => 'preactive'
   end
 
+  def self.in_states *states
+    where "state in (?)", states
+  end
+
   def self.next_payment_date after_date=nil
     after_date ||= DateTime.now
     after_date = after_date + 1.month if after_date.day > PAYMENT_DUE_ON
@@ -82,11 +86,10 @@ class Membership < ActiveRecord::Base
     unless invoice.save
       puts "UNABLE TO CREATE INVOICE: #{ invoice.errors.full_messages.join(", ") }"
     end
-
   end
 
   def self.generate_dues_invoices
-    Membership.active.each do |membership|
+    Membership.in_states(:active, :suspended).each do |membership|
       # if no next invoice?
       if membership.invoices.for_reason(Invoice::DUES).where(:due_by => self.next_payment_date).count == 0
         puts "Generating dues invoice for #{membership.user.username}"

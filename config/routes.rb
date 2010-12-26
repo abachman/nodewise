@@ -1,12 +1,7 @@
 Nodewise::Application.routes.draw do
-  match "/finances" => "finances#index", :as => :finances
-
   devise_for :users
 
-  # devise_scope :user do
-  #   get '/login' => 'devise/sessions#new'
-  #   get '/logout' => 'devise/sessions#destroy'
-  # end
+  match "/finances" => "finances#index", :as => :finances
 
   resources :payments, :only => [:create, :index, :new]
   resources :invoices, :only => [:create, :new] do
@@ -22,16 +17,15 @@ Nodewise::Application.routes.draw do
     end
   end
 
-  resources :users
-
-  get '/members' => 'users#index', :as => :members
-  match '/:username' => 'users#show', :as => :member
-
-  resources :memberships, :except => [:create, :new] do
+  resources :memberships, :except => [:create, :new, :destroy] do
     member do
       post :activate
     end
   end
+
+  resources :users
+  get '/members' => 'users#index', :as => :members
+  match '/:username' => 'users#show', :as => :member
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

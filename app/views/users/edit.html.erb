@@ -11,7 +11,7 @@
     </div>
 
     <div class="form_section">
-      <%= f.label :email %> <i>(to get a profile image, sign up with this email address on <%= link_to "Gravatar", "http://www.gravatar.com/" %>)</i><br />
+      <%= f.label :email %> <i>(this is how we'll send you remoinders, and find your profile image on <%= link_to "Gravatar", "http://www.gravatar.com/" %>)</i><br />
       <%= f.text_field :email %>
     </div>
 
@@ -44,6 +44,18 @@
           <%=h role.to_s.humanize %><br />
         <% end %>
         <%= hidden_field_tag "user[roles][]", "" %>
+
+        <br />
+        <%= link_to_function "explanation", "$('#role-explanation').toggle()" %>
+
+        <div id='role-explanation' class='box' style="display:none">
+          <dl>
+            <dt>Admin</dt><dd>This user has the ability to do almost anything, but not money stuff. BE CAREFUL WITH THIS ROLE.</dd>
+            <dt>Treasurer</dt><dd>Can manage memberships and money stuff.</dd>
+            <dt>Member</dt><dd>Allows bill payment, voting, access... normal member stuff. Admin and Treasurer should also be Members.</dd>
+            <dt>Guest</dt><dd>Limited access. No money stuff, no voting, just access to member list. Guests should have <code>inactive</code> memberships.</dd>
+          </dl>
+        </div>
       </div>
     <% else %>
       <div class="box_round">
