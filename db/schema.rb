@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20101225025630) do
     t.integer  "user_id",      :null => false
     t.string   "state",        :null => false
     t.decimal  "monthly_fee",  :null => false
-    t.datetime "member_since", :null => false
+    t.datetime "member_since"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -53,7 +53,12 @@ class UsersController < ApplicationController
 
 protected
   def find_user
-    @user = User.public.with_username params[:username]
+    if user_signed_in?
+      @user = User.with_username params[:username]
+    else
+      @user = User.public.with_username params[:username]
+    end
+
     user_check
   end
 

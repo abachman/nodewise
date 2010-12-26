@@ -8,7 +8,7 @@ Nodewise::Application.load_tasks
 
 task :prevent_production => :environment do 
   if Rails.env == 'production'
-    raise StandardError.new("THIS TASK IS DESTRUCTIVE, DO NOT RUN IN PRODUCTION")
+    raise "THIS TASK IS DESTRUCTIVE, DO NOT RUN IN PRODUCTION"
   end
 end
 

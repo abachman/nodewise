@@ -4,7 +4,7 @@ class CreateMemberships < ActiveRecord::Migration
       t.integer  :user_id, :null => false
       t.string   :state, :null => false
       t.decimal  :monthly_fee, :null => false
-      t.datetime :member_since, :null => false
+      t.datetime :member_since
 
       t.timestamps
     end

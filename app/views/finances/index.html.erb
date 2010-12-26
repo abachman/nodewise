@@ -1,12 +1,4 @@
 <% set_title "Manage Finances" %>
-<script>
-  var INVOICES = <%=raw invoice_amounts_hash(@unpaid_invoices).to_json %>;
-  $(function () {
-    $('#payment_invoice_id').change(function () {
-      $('#payment_amount').val( INVOICES[$('#payment_invoice_id').val()] );
-    });
-  });
-</script>
 
 <div class="span-20">
   <h2 class="lead">Invoices</h2>
@@ -15,30 +7,6 @@
   <h2>Reports</h2>
 
   <script>
-    function linkToReport(text, date) {
-      $('#invoice_report_status').show();
-      $.ajax({
-        url: '<%= report_invoices_path %>',
-        data: {from_date: date, link: text},
-        dataType: 'script',
-        success: function () {
-          $('#invoice_report_status').fadeOut();
-
-          // reset all
-          $("#report_links a").show();
-          $("#report_links .label").hide();
-
-          // set specific
-          $("#report_links a:contains('"+ text +"')").hide();
-          $("#report_links .label:contains('"+ text +"')").show();
-        }
-      });
-      return false;
-    }
-
-    $(function () {
-      linkToReport('All', '1910-01-01');
-    });
   </script>
 
   <div id='report_links'>

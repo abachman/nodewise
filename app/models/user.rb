@@ -23,6 +23,19 @@ class User < ActiveRecord::Base
     self.username = self.username.chomp.strip
   end
 
+  after_create :generate_membership
+  def generate_membership
+    if membership.nil?
+      membership = Membership.new(
+        :monthly_fee => Membership::DEFAULT_MONTHLY_FEE
+      )
+      membership.user_id = self.id
+      membership.save
+    else 
+      true
+    end
+  end
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :token_authenticatable,

@@ -26,6 +26,35 @@
     </tr>
   </table>
 
+  <% if can?(:approve, User) && Membership.preactive.count > 0 %>
+    <h2>Approve New Users</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Profile</th>
+          <th>Created At</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Membership.preactive.each do |membership| %>
+          <tr>
+            <td><%= membership.user.username %></td>
+            <td><%= link_to user_path(membership.user.username), user_path(membership.user.username) %></td>
+            <td><%= membership.created_at.strftime("%Y-%m-%d") %></td>
+            <td>
+              <%= link_to "edit", edit_membership_path(membership) %>
+              |
+              <%= link_to "approve", activate_membership_path(membership), :method => :post, :confirm => 'Are you sure you want to approve this member?' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
   <h2>Billing History</h2>
   <%= render 'shared/invoices', :invoices => current_user.membership.invoices %>
 

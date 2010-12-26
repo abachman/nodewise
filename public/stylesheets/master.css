@@ -84,6 +84,8 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 .profile_hover { border: 1px solid #999; background-color: #ffd; cursor: pointer; }
 .profile img { float: left; margin-right: 12px; clear; both; }
 .profile.mine {color: #999;}
+.profile .user_edit_links ul { list-style-type: none; margin: 0; padding: 0; border: none;}
+.profile .user_edit_links li { list-style-type: none; margin:0; padding: 0 0 0 10px; border: none; line-height: 1.2em; font-size: 1.2em; float:left; }
 
 .full_profile .head h1 { margin-bottom: 2px; }
 .full_profile .head { margin-bottom: 24px; }

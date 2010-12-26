@@ -2,14 +2,14 @@ require 'date'
 
 namespace :data do
   desc "Load sandbox data"
-  task :load => :environment do
+  task :load => [:environment] do
 
     # Regular User
     puts "load member"
     create_active_member('')
 
     # A bunch of regular users
-    25.times do |n|
+    20.times do |n|
       create_active_member(n)
     end
 
@@ -65,15 +65,25 @@ def create_active_member(tag)
 end
 
 def generate_membership(user)
+  user.reload
+
   now          = DateTime.now
-  month_offset = rand(20 + 2)
+  month_offset = rand(20) + 2
   start_date   = now - month_offset.months
 
-  mbr = Membership.create(
-    :user => user,
-    :monthly_fee => "50.00",
-    :member_since => start_date
-  )
+  mbr = user.membership
+  if mbr.nil?
+    mbr = Membership.create(
+      :user => user,
+      :monthly_fee => "50.00",
+      :member_since => start_date
+    )
+  else
+    mbr.update_attributes(
+      :monthly_fee => "50.00",
+      :member_since => start_date
+    )
+  end
   mbr.activate!
 
   (month_offset).times do |n|
@@ -88,13 +98,7 @@ def generate_membership(user)
   end
   
   # current
-  Invoice.create(
-    :amount => mbr.monthly_fee,
-    :reason => "dues",
-    :due_by => Membership.next_payment_date,
-    :paid   => false,
-    :membership_id => mbr.id
-  )
+  mbr.generate_dues_invoice!
 end
 
 def get_bio

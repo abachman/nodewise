@@ -62,6 +62,10 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def self.latest
+    order('due_by DESC').limit(1).first
+  end
+
   def label
     "%s, %s, %s" % [membership.user.full_name, reason, due_by.strftime("%d %b %Y")]
   end

@@ -12,18 +12,10 @@ class ApplicationController < ActionController::Base
       @user = current_user
     end
     @membership = @user.membership
-    @invoices = @membership.invoices.joins(:membership => :user).order("due_by, users.username")
-    @unpaid_invoices = @invoices.unpaid
-    @invoices_for_select = @unpaid_invoices.map {|i|
-      [i.label, i.id]
-    }
+    @invoices = @membership.invoices.joins(:membership => :user).order("due_by DESC, users.username")
   end
 
   def load_payments_and_invoices
-    @invoices = Invoice.joins(:membership => :user).order("due_by, users.username")
-    @unpaid_invoices = Invoice.where(:paid => false).joins(:membership => :user).order('users.username')
-    @invoices_for_select = @unpaid_invoices.map {|i|
-      [i.label, i.id]
-    }
+    @invoices = Invoice.joins(:membership => :user).order("due_by DESC, users.username")
   end
 end

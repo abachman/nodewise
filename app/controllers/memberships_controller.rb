@@ -2,8 +2,6 @@ class MembershipsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  before_filter :load_payments_and_invoices_for_user, :only => [:edit]
-
   def index
   end
 
@@ -12,6 +10,7 @@ class MembershipsController < ApplicationController
 
   def edit
     @user = @membership.user
+    load_payments_and_invoices_for_user
   end
 
   def update
@@ -28,6 +27,13 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def activate
+    @membership.activate!
+    @membership.generate_dues_invoice
+    flash[:success] = "Successfully activated #{ @membership.user.full_name }"
+    redirect_to '/'
   end
 
 end

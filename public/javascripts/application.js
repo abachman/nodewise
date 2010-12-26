@@ -1,4 +1,4 @@
-SITENAME = {
+NODEWISE = {
   common: {
     init: function() {
       // application-wide code
@@ -22,12 +22,18 @@ SITENAME = {
     show: function() {
       // action-specific code
     }
+  },
+
+  finances: {
+    init: function () {
+      linkToReport('All', '1910-01-01');
+    }
   }
 };
 
 UTIL = {
   exec: function( controller, action ) {
-    var ns = SITENAME,
+    var ns = NODEWISE,
         action = ( action === undefined ) ? "init" : action;
 
     if ( controller !== "" && ns[controller] && typeof ns[controller][action] == "function" ) {
@@ -69,3 +75,25 @@ function showMessage(level, msg) {
   $('.flash_wrapper').append(flash);
   showFlashMessage(flash, 1500);
 }
+
+function linkToReport(text, date) {
+  $('#invoice_report_status').show();
+  $.ajax({
+    url: '<%= report_invoices_path %>',
+    data: {from_date: date, link: text},
+    dataType: 'script',
+    success: function () {
+      $('#invoice_report_status').fadeOut();
+
+      // reset all
+      $("#report_links a").show();
+      $("#report_links .label").hide();
+
+      // set specific
+      $("#report_links a:contains('"+ text +"')").hide();
+      $("#report_links .label:contains('"+ text +"')").show();
+    }
+  });
+  return false;
+}
+
