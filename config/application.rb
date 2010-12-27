@@ -38,13 +38,5 @@ module Nodewise
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-
-    config.middleware.use(
-      ExceptionNotifier,
-      :email_prefix => "[nodewise-#{ Rails.env }] ",
-      :sender_address => %{"nodewise exception" <no-reply@baltimorenode.org>},
-      :exception_recipients => ENV['EXCEPTION_RECIPIENTS'].split(",")
-    )
   end
 end
-
