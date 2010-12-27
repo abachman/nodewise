@@ -33,7 +33,6 @@ days, it makes sense to bring it into this application since we'll have a better
 handle on history and be able to better control the process. Plus, maybe we can
 play with some totally sweet voting algorithms.
 
-
 ### II. The Space
 
 * Workshop control: access control (as it concerns the space) and environment (lights,
@@ -68,6 +67,25 @@ Once those are setup and ready to go, you should be able to run the tests and a 
 
 If you want to deploy to the Node's servers (Heroku: demo, staging, production),
 contact me to be added to the heroku projects as a collaborator.
+
+If you want to fork the project and run it for your own hackerspace, more power
+to you. I recommend waiting until I finish.
+
+### Running your own instance
+
+This is bog standard [Heroku](http://heroku.com) compliant code. 
+
+I'm running on a free instance using free versions of the Sendwise, Cron, and
+Custom Domain Heroku addons.
+
+If you want to install and maintain your own instance:
+
+1. clone this repo
+1. modify `config/heroku.yml` to include the appropriate heroku app names
+1. `$ bundle install`
+1. `$ rake heroku:create`
+1. `$ heroku config:add EXECEPTION_RECIPIENTS=an.email@address.co`
+1. and away you go
 
 ### License
 
