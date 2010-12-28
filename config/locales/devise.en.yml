@@ -32,8 +32,8 @@ en:
       unlocked: 'Your account was successfully unlocked. You are now signed in.'
     mailer:
       confirmation_instructions:
-        subject: 'Nodewise confirmation instructions'
+        subject: 'Confirm your Nodewise account'
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: 'Reset your Nodewise password'
       unlock_instructions:
         subject: 'Unlock Instructions'
