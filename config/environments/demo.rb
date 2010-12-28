@@ -35,7 +35,7 @@ Nodewise::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
@@ -47,6 +47,7 @@ Nodewise::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # 
+  # don't actually send email
+  config.action_mailer.perform_deliveries = :false
   config.action_mailer.default_url_options = { :host => 'nodewise-demo.heroku.com' }
 end

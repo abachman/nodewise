@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def notify_admins
-    UserMailer.user_created(self).deliver
+    UserMailer.user_created(self).deliver if User.having_role(:admin).count > 0
   end
 
   # Include default devise modules. Others available are:
