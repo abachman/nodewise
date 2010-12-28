@@ -6,4 +6,9 @@ class StartController < ApplicationController
     end
   end
 
+  def auth
+    # you are now wepay authorized
+    @auth_hash = request.env['omniauth.auth']
+  end
+
 end

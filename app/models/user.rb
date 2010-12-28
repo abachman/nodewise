@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :case_sensitive => false
   # reserved usernames, so that we can use /:username as a shortlink to a user
   validates_exclusion_of :username,
-    :in => %w[ users admin reports ads partners api issues votes finances ],
+    :in => %w[ users admin reports ads partners api issues votes finances payment ],
     :message => "%{value} is reserved."
   # username must look like...
   validates_format_of :username,

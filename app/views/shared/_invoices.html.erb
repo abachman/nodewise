@@ -3,35 +3,35 @@
   <div class='clearfix'>
     <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.min' %>
     <%= javascript_include_tag 'libs/tablesorter/jquery.tablesorter.pager' %>
+    <%= javascript_include_tag 'libs/jquery.simplemodal' %>
     <link rel='stylesheet' type='text/css' href='/javascripts/libs/tablesorter/style.css' />
+    <%= stylesheet_link_tag 'plugins/simplemodal' %>
+
+    <!--[if lt IE 7 ]>
+      <%= stylesheet_link_tag 'plugins/simplemodal_ie' %>
+    <![endif]-->
     <script>
-      function loadDialog(url, title) {
-        var d    = $('#dialog-form'),
-            container = d.find('.form-container');
-
-        d.find('.title').text(title);
-        container.html("<h3>Loading...</h3>");
-        container.load(url);
-
-        d.show();
-
-        d.offset({
-          top: $(window).scrollTop() + 50,
-          left: ($(window).width() - d.width()) / 2
-        });
-
-        $('#dialog-close-link').click(function () {
-          $('#dialog-form').hide();
-        });
+      // returns hash with simplemodal onOpen callback
+      function modalBehavior(url, title) {
+        return {
+          onOpen: function (dialog) {
+            $('#simplemodal-container').addClass('clearfix');
+            $('.form-container', dialog.data).load(url);
+            $('.title', dialog.data).text(title);
+            dialog.overlay.fadeIn(200, function () {
+              dialog.container.fadeIn(200, function () {
+                dialog.data.show();
+              });
+            });
+          }
+        };
       }
 
       function addPayLinkBehavior() {
         $('.pay-invoice').click(function(evt) {
-          var link = $(evt.target);
-          loadDialog(
-            "<%= new_payment_path %>?invoice_id=" + link.attr('data-attribute'), 
-            "New Payment"
-          );
+          var link = $(evt.target),
+              url = "<%= new_payment_path %>?invoice_id=" + link.attr('data-attribute');
+          $("#dialog-form").modal( modalBehavior(url, "Pay Invoice") );
           return false;
         });
       }
@@ -40,12 +40,12 @@
         addPayLinkBehavior();
 
         $('.add-invoice').click(function(evt) {
-          var link = $(evt.target);
-          loadDialog(
-            "<%= new_invoice_path %>?membership_id=" + link.attr('data-attribute') +
-              "&show_username=<%= show_username ? '1' : '0' %>", 
-            "Create Invoice"
-          );
+          var link = $(evt.target),
+              url = "<%= new_invoice_path %>?membership_id=" + link.attr('data-attribute') +
+                    "&show_username=<%= show_username ? '1' : '0' %>";
+
+          $("#dialog-form").modal( modalBehavior(url, "Create Invoice") );
+
           return false;
         });
       });
@@ -61,7 +61,6 @@
       <div id='dialog-form' style='display:none;'>
         <div class='controls clearfix'>
           <span class='title'></span>
-          <a href='javascript:void(0);' id='dialog-close-link' style='position:relative;bottom:0px'>Close</a>
         </div>
         <div class='form-container'>
           <h3>Loading...</h3>

@@ -3,7 +3,8 @@ invoice_table.append("<%= escape_javascript(render('invoices/row', :invoice => @
 addPayLinkBehavior();
 
 // meta
-$('#dialog-form').fadeOut(150);
+$.modal.close();
+// $('#dialog-form').fadeOut(150);
 
 $('table#invoices').trigger('update');
 

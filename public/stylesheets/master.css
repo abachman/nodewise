@@ -112,26 +112,15 @@ tr.unpaid td { background-color: #fee !important; }
 
 #invoices-pager img { vertical-align: middle; }
 
-#dialog-form {
-  position: absolute;
-  top:0;
-  left:0;
-  background: #fff;
-  border:4px solid black;
-  width: 400px;
-}
-
 #dialog-form .error-messages {
   margin-top: 8px;
 }
 
-#dialog-form .form-container {
-  padding:0 10px;
-}
 #dialog-form .controls {
   padding: 6px 10px;
   background: #eec;
 }
+
 #dialog-form .title {
   float:left;
   font-weight:bold;
@@ -142,6 +131,7 @@ tr.unpaid td { background-color: #fee !important; }
 #dialog-form .controls a {
   float: right;
 }
+
 #dialog-form form input[type=submit] {
   margin-bottom: 14px;
 }

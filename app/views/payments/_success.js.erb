@@ -3,7 +3,7 @@ ir.removeClass('unpaid');
 ir.find('.payment_date').text("<%= @payment.created_at.strftime("%Y-%m-%d") %>");
 ir.find('.controls').html('');
 
-$('#dialog-form').fadeOut(150);
+$.modal.close();
 
 $('table#invoices').trigger('update');
 

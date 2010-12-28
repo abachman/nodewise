@@ -3,6 +3,9 @@ Nodewise::Application.routes.draw do
 
   match "/finances" => "finances#index", :as => :finances
 
+  match "/pay-a-bill" => redirect("/auth/wepay")
+  match "/auth/wepay/callback" => "start#auth"
+
   resources :payments, :only => [:create, :index, :new]
   resources :invoices, :only => [:create, :new] do
     member do

@@ -13,8 +13,8 @@ gem 'dalli' # memcache
 gem 'i18n'
 gem 'role_model'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
-gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git',
-  :require => "exception_notifier"
+gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => "exception_notifier"
+gem 'omniauth', :git => 'git://github.com/intridea/omniauth.git'
 
 # generate dummy text
 gem 'faker'
