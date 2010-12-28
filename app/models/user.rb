@@ -1,7 +1,7 @@
 require 'md5'
 
 class User < ActiveRecord::Base
-  include RoleModel
+    include RoleModel
   roles_attribute :roles_mask
   roles :admin, :treasurer, :member, :guest
 
@@ -35,8 +35,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def notify_admins
-    UserMailer.user_created(self).deliver if User.having_role(:admin).count > 0
+  def notify_admins 
+    if User.having_role(:admin).count > 0
+      UserMailer.user_created(self).deliver
+    end
   end
 
   # Include default devise modules. Others available are:
