@@ -1,0 +1,41 @@
+<div class="span-24 last full_profile clearfix">
+
+  <div class="head">
+    <h1><%= user.username %></h1>
+    <% if user_signed_in? %>
+      <h3><%= user.full_name %></h3>
+    <% end %>
+    <% if user.membership.active? || user.membership.suspended? %>
+      <em>member since <%= user.membership.member_since.strftime("%d %b %Y") %></em>
+    <% elsif user.membership.inactive? %>
+      <em>this member is no longer active</em>
+    <% elsif user.membership.preactive? %>
+      <em>this member is not yet active</em>
+    <% end %>
+  </div>
+
+  <div class="span-4">
+    <a href='<%= member_url(user.username) %>'>
+      <img src='<%= user.gravatar_url(128) %>' />
+    </a>
+  </div>
+
+  <div class="span-8">
+    <%= raw user.rendered_bio %>
+  </div>
+
+  <% if user_signed_in? %>
+    <div class="push-4 span-4 last">
+      <% if can? :modify, user %>
+        <%= link_to "Edit profile", edit_user_path(:id => user.id) %>
+        <br />
+      <% end %>
+
+      <% if can? :edit, user.membership %>
+        <%= link_to "Edit membership", edit_membership_path(user.membership) %>
+        <br />
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

@@ -25,11 +25,12 @@ form table { margin-bottom:1.4em;width:100%; }
 }
 
 /* HEADER */
-#header_container { height: 46px; margin-bottom: 12px; }
+#header_container { height: 46px; margin-bottom: 4px; }
 #header_container h2 {
   color: #fff;
   float: left;
   padding-top: 10px;
+  padding-bottom: 0; margin-bottom: 0;
   font-size: 28px;
   font-weight: bold;
   text-shadow:1px 1px 2px #939EAD;
@@ -78,8 +79,7 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 
 /* BODY */
 #container h2 { border-top: 4px solid #E0E0E0 ; font-size: 150% ; margin-top: 1.5em ; padding-top: 0.5em ; }
-#container h2.lead { margin-top: 0; }
-
+.lead { margin-top: 0; }
 .profile { margin: 16px 0; border: 1px solid #fff; padding: 8px; }
 .profile_hover { border: 1px solid #999; background-color: #ffd; cursor: pointer; }
 .profile img { float: left; margin-right: 12px; clear; both; }
@@ -89,6 +89,7 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 
 .full_profile .head h1 { margin-bottom: 2px; }
 .full_profile .head { margin-bottom: 24px; }
+#full_profiles .full_profile { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #ddd; }
 
 .sidenav ul { list-style-type: none; margin: 0; padding: 0; border: none; }
 .sidenav li { list-style-type: none; margin: 0; padding: 0; border: none; line-height: 1.2em; font-size: 1.2em; }
@@ -135,3 +136,14 @@ tr.unpaid td { background-color: #fee !important; }
 #dialog-form form input[type=submit] {
   margin-bottom: 14px;
 }
+
+/* pill style links - http://twitter.com/zachwaugh */
+.controls { height: 25px; }
+.controls ul { margin-left: 0; padding-left: 0;}
+.controls li { border-right: 1px solid #E7E7E7; display: block; float: left; }
+.controls li:first-child a { -moz-border-radius: 5px 0 0 5px; -webkit-border-radius: 5px 0 0 5px; border-radius: 5px 0 0 5px; }
+.controls li:last-child a { -moz-border-radius: 0 5px 5px 0; -webkit-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
+.controls li:last-child { border: 0; }
+.controls li a { background-color: #f4f4f4; color: #999; display: block; float: left; font-size: 11px; font-weight: bold; height: 25px; line-height: 25px; padding: 0 10px; }
+.controls li a:hover { background-color: #e7e7e7; color: #666; }
+.controls .selected { background-color: #fff; text-decoration: none; }

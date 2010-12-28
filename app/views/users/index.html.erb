@@ -1,6 +1,24 @@
-<% @users.each_with_index do |user, count| %>
-  <%= render 'member_profile', :user => user, :count => count %>
-<% end %>
+<% set_title "members" %>
+<div class='span-24 lead'>
+  <div class='controls'>
+    <ul>
+      <li><%= link_to "Short Profiles", "#", :id => 'show_short_profiles' %></li>
+      <li><%= link_to "Full Profiles", "#", :id => 'show_full_profiles' %></li>
+    </ul>
+  </div>
+</div>
+
+<div class='span-24' id='short_profiles'>
+  <% @users.each_with_index do |user, count| %>
+    <%= render 'member_profile', :user => user, :count => count %>
+  <% end %>
+</div>
+
+<div class='span-24' id='full_profiles' style='display:none'>
+  <% @users.each_with_index do |user, count| %>
+    <%= render 'full_member_profile', :user => user, :count => count %>
+  <% end %>
+</div>
 
 <script>
   $(function () {
@@ -15,6 +33,19 @@
         window.status = '';
       }
     );
+
+    $('#show_short_profiles').addClass('selected').click(function () {
+      $('#full_profiles').hide();
+      $('#short_profiles').show();
+      $('#show_short_profiles').addClass('selected');
+      $('#show_full_profiles').removeClass('selected');
+    });
+    $('#show_full_profiles').click(function () {
+      $('#short_profiles').hide();
+      $('#full_profiles').show();
+      $('#show_full_profiles').addClass('selected');
+      $('#show_short_profiles').removeClass('selected');
+    });
   });
 </script>
 

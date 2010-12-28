@@ -19,6 +19,10 @@ NODEWISE = {
       // controller-wide code
     },
 
+    index: function () {
+
+    },
+
     show: function() {
       // action-specific code
     }
