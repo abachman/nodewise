@@ -58,6 +58,15 @@
   <%= render 'shared/header' %>
 
   <div id="container" class='container'>
+    <div class='flash_wrapper'>
+      <%- flash.each do |name, msg| -%>
+        <% next unless msg.is_a?(String) %>
+        <%= content_tag :div, :class => "flash", :id => "flash_#{name}" do %>
+          <%= msg %>
+          <a href='#' class='close'>X</a>
+        <% end %>
+      <%- end -%>
+    </div>
 
     <div id="main">
       <%= yield %>

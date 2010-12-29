@@ -3,12 +3,6 @@
     <header class='span-24 last'>
       <h2><%= link_to "nodewise", root_url %></h2> 
 
-      <div class='flash_wrapper'>
-        <%- flash.each do |name, msg| -%>
-          <%= content_tag :span, msg, :style => 'display:none', :class => "flash", :id => "flash_#{name}" if msg.is_a?(String) %>
-        <%- end -%>
-      </div>
-
       <nav>
         <ul class="main_nav">
           <li><%= link_to "Members", members_path %></li>

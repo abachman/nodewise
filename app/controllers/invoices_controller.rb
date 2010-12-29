@@ -13,7 +13,7 @@ class InvoicesController < ApplicationController
     if @invoice.save
       respond_to do |format|
         format.html {
-          flash[:success] = "Successfully created invoice."
+          flash[:success] = %[Successfully created invoice, "#{ @invoice.label }"]
           authorized_redirect
         }
         format.js {

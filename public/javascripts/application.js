@@ -8,9 +8,7 @@ NODEWISE = {
         window.console = {log: function(msg){ mdiv.html( mdiv.html() + "<br>" + msg ) }};
       }
 
-      var flash = $('.flash');
-
-      showFlashMessage(flash);
+      MESSAGING.initFlash();
     }
   },
 
@@ -58,26 +56,31 @@ UTIL = {
 
 $(document).ready(UTIL.init);
 
-function showFlashMessage(flash, delay) {
-  if (_.isUndefined(delay)) {
-    delay = 5000;
-  }
-  flash.show().
-    addClass('box_round').
-    addClass('box_shadow').
-    css({textAlign:'center', zIndex:'1000'}).
-    offset({
-      top: $(window).scrollTop()+ 5,
-      left: ($(window).width() - flash.width()) / 2
-    }).
-    delay(delay).
-    fadeOut(1000);
-}
+MESSAGING = {};
+(function (klass) {
+  klass.initFlash = function () {
+    var flash = $('.flash');
+    this.showFlashMessage(flash);
+  };
+
+  klass.initFlashBehavior = function (flash) {
+    $('.close', flash).click(function () {
+      flash.remove();
+      return false;
+    });
+  };
+
+  klass.showFlashMessage = function (flash) {
+    flash.show();
+    this.initFlashBehavior(flash);
+  };
+})(MESSAGING);
 
 function showMessage(level, msg) {
-  var flash = $("<span class='flash' id='flash_" + level + "'></span>").html(msg);
+  var flash = $("<div class='flash' id='flash_" + level + "'></div>").html(msg);
   $('.flash_wrapper').append(flash);
-  showFlashMessage(flash, 1500);
+  $(flash).append("<a href='#' class='close'>X</a>");
+  MESSAGING.showFlashMessage(flash);
 }
 
 function linkToReport(text, date) {

@@ -25,7 +25,7 @@ form table { margin-bottom:1.4em;width:100%; }
 }
 
 /* HEADER */
-#header_container { height: 46px; margin-bottom: 4px; }
+#header_container { height: 46px; margin-bottom: 12px; }
 #header_container h2 {
   color: #fff;
   float: left;
@@ -60,14 +60,7 @@ nav a.user span {
 }
 nav a.user img { margin-right: 5px; vertical-align: middle; }
 
-.flash_wrapper {
-  position: relative;
-  float:left;
-  left: 40px;
-  margin:0; padding:0;
-}
-
-.flash { padding: 7px 10px 5px; height: 19px; display: inline-block; vertical-align: middle; margin: 6px 0 0 30px; }
+.flash { padding: 7px 10px 5px; height: 19px; vertical-align: middle; margin: 0 0 16px; border: 2px solid white; }
 #flash_error, #flash_alert { background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4; }
 #flash_notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
 #flash_success {background:#deffd6;color:#264409;border-color:#c6d880;}
@@ -76,10 +69,11 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 #flash_notice a {color:#514721;}
 #flash_success a {color:#264409;}
 #flash_info a {color:#205791;}
+.flash a.close { float: right; }
 
 /* BODY */
 #container h2 { border-top: 4px solid #E0E0E0 ; font-size: 150% ; margin-top: 1.5em ; padding-top: 0.5em ; }
-.lead { margin-top: 0; }
+.lead { margin-top: 0 !important; }
 .profile { margin: 16px 0; border: 1px solid #fff; padding: 8px; }
 .profile_hover { border: 1px solid #999; background-color: #ffd; cursor: pointer; }
 .profile img { float: left; margin-right: 12px; clear; both; }

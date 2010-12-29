@@ -7,4 +7,4 @@ $.modal.close();
 
 $('table#invoices').trigger('update');
 
-showMessage('success', "Successfully created invoice.");
+showMessage('success', "Successfully created invoice, \"<%= @invoice.label %>\"");
