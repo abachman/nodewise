@@ -1,5 +1,5 @@
-<div class="span-24 last full_profile clearfix">
-
+<% is_last ||= false %>
+<div class="span-24 last full_profile clearfix <%= "end" if is_last %> ">
   <div class="head">
     <h1><%= user.username %></h1>
     <% if user_signed_in? %>

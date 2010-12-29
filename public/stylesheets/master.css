@@ -74,16 +74,19 @@ nav a.user img { margin-right: 5px; vertical-align: middle; }
 /* BODY */
 #container h2 { border-top: 4px solid #E0E0E0 ; font-size: 150% ; margin-top: 1.5em ; padding-top: 0.5em ; }
 .lead { margin-top: 0 !important; }
-.profile { margin: 16px 0; border: 1px solid #fff; padding: 8px; }
+.profile { margin: 0; border: 1px solid #fff; padding: 8px; }
+.profile .inner { float: left; position: relative; height: 129px; width: 140px; }
 .profile_hover { border: 1px solid #999; background-color: #ffd; cursor: pointer; }
-.profile img { float: left; margin-right: 12px; clear; both; }
+.profile img { float: left; margin-right: 12px; clear; both; width: 128px; height: 128px; }
 .profile.mine {color: #999;}
-.profile .user_edit_links ul { list-style-type: none; margin: 0; padding: 0; border: none;}
-.profile .user_edit_links li { list-style-type: none; margin:0; padding: 0 0 0 10px; border: none; line-height: 1.2em; font-size: 1.2em; float:left; }
+.profile .edit_member { position: absolute; bottom: 0; left: 0; margin: 0; padding: 0; }
+.profile ul.user_edit_links { list-style-type: none; margin: 0; padding: 0; border: none;}
+.profile ul.user_edit_links li { list-style-type: none; margin: 0; padding: 0; border: none; line-height: 1.2em; }
 
 .full_profile .head h1 { margin-bottom: 2px; }
 .full_profile .head { margin-bottom: 24px; }
 #full_profiles .full_profile { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #ddd; }
+#full_profiles .full_profile.end { border-bottom: none !important; }
 
 .sidenav ul { list-style-type: none; margin: 0; padding: 0; border: none; }
 .sidenav li { list-style-type: none; margin: 0; padding: 0; border: none; line-height: 1.2em; font-size: 1.2em; }

@@ -46,10 +46,15 @@ class Membership < ActiveRecord::Base
   end
 
   def do_activation
-    # prepare alerts
-    # schedule payment
+    # set up user record
+    u = User.find_by_id user_id
+    u.roles = [:member]
+    u.save
+
+    # set up member record
     self.member_since = DateTime.now.to_date
   end
+
 
   def self.active
     where :state => 'active'

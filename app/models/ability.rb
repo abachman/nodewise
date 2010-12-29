@@ -32,13 +32,10 @@ class Ability
       # end
       
       ## VOTING
-
-      can :manage, User, :id => user.id
-      can :show, User
     end
 
-    if user.is? :guest
-      # default limited access user
-    end
+    # Anyone
+    can :manage, User, :id => user.id
+    can :show, User
   end
 end

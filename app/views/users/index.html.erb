@@ -2,8 +2,8 @@
 <div class='span-24 lead'>
   <div class='controls'>
     <ul>
-      <li><%= link_to "Short Profiles", "#", :id => 'show_short_profiles' %></li>
-      <li><%= link_to "Full Profiles", "#", :id => 'show_full_profiles' %></li>
+      <li><%= link_to "Short Profiles", "#short", :id => 'show_short_profiles' %></li>
+      <li><%= link_to "Full Profiles", "#full", :id => 'show_full_profiles' %></li>
     </ul>
   </div>
 </div>
@@ -16,7 +16,7 @@
 
 <div class='span-24' id='full_profiles' style='display:none'>
   <% @users.each_with_index do |user, count| %>
-    <%= render 'full_member_profile', :user => user, :count => count %>
+    <%= render 'full_member_profile', :user => user, :is_last => (count == @users.size-1) %>
   <% end %>
 </div>
 
@@ -25,6 +25,7 @@
     $('.profile').click(function () {
       window.location.href = $(this).attr('href');
     });
+
     $('.profile').hover(function () {
         $(this).addClass("profile_hover");
         window.status = $(this).attr('href'); // doesn't work in Chrome
@@ -40,12 +41,19 @@
       $('#show_short_profiles').addClass('selected');
       $('#show_full_profiles').removeClass('selected');
     });
+
     $('#show_full_profiles').click(function () {
       $('#short_profiles').hide();
       $('#full_profiles').show();
       $('#show_full_profiles').addClass('selected');
       $('#show_short_profiles').removeClass('selected');
     });
+
+    if (window.location.hash) {
+      if (window.location.hash == '#full') {
+        $('#show_full_profiles').click();
+      }
+    }
   });
 </script>
 

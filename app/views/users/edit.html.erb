@@ -1,4 +1,10 @@
-<h2>Edit <%= @user.full_name %></h2>
+<% set_title "Edit #{ @user.username }" %>
+
+<% if @user == current_user %>
+  <h2>Edit your account</h2>
+<% else %>
+  <h2>Edit <%= @user.full_name %></h2>
+<% end %>
 
 <%= form_for(@user) do |f| %>
   <%= f.error_messages %>

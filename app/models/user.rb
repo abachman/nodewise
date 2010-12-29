@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   after_create :notify_admins
 
   def generate_membership
+    # set up initial user conditions
     if membership.nil?
       membership = Membership.new(
         :monthly_fee => Membership::DEFAULT_MONTHLY_FEE
@@ -34,6 +35,9 @@ class User < ActiveRecord::Base
       membership.user_id = self.id
       membership.save
     end
+
+    self.roles = [:guest]
+    save
   end
 
   def notify_admins 
