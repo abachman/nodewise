@@ -36,7 +36,11 @@ class UsersController < ApplicationController
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated User."
+      if @user == current_user
+        flash[:notice] = "Successfully updated your profile."
+      else
+        flash[:notice] = "Successfully updated #{ @user.username }'s profile."
+      end
       redirect_to root_path
     else
       render :action => 'edit'

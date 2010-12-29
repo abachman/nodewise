@@ -3,38 +3,43 @@
 <%= form_for(@user) do |f| %>
   <%= f.error_messages %>
 
-  <div class="span-12">
-    <div class="form_section">
-      <%= f.label :username %>
-      <i>(this is used for your <%= link_to "profile link", member_path(@user.username), :target => '_blank' %>)</i><br />
-      <%= f.text_field :username %>
-    </div>
+  <% if @user == current_user %>
+    <div class="span-12">
+      <div class="form_section">
+        <%= f.label :username %>
+        <i>(this is used for your <%= link_to "profile link", member_path(@user.username), :target => '_blank' %>)</i><br />
+        <%= f.text_field :username %>
+      </div>
 
-    <div class="form_section">
-      <%= f.label :email %> <i>(this is how we'll send you remoinders, and find your profile image on <%= link_to "Gravatar", "http://www.gravatar.com/" %>)</i><br />
-      <%= f.text_field :email %>
-    </div>
+      <div class="form_section">
+        <%= f.label :email %> <i>(this is how we'll send you remoinders, and find your profile image on <%= link_to "Gravatar", "http://www.gravatar.com/" %>)</i><br />
+        <%= f.text_field :email %>
+      </div>
 
-    <div class="form_section">
-      <%= f.label :full_name %><br />
-      <%= f.text_field :full_name %>
-    </div>
+      <div class="form_section">
+        <%= f.label :full_name %><br />
+        <%= f.text_field :full_name %>
+      </div>
 
-    <div class="form_section">
-      <%= f.label :bio %> <i>(this field will be rendered with <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">markdown</a>)</i><br />
-      <%= f.text_area :bio %>
+      <div class="form_section">
+        <%= f.label :bio %> <i>(this field will be rendered with <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">markdown</a>)</i><br />
+        <%= f.text_area :bio %>
+      </div>
     </div>
-  </div>
+  <% end %>
+
   <div class="span-12 last">
-    <div class="form_section">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password %>
-    </div>
+    <% if @user == current_user %>
+      <div class="form_section">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password %>
+      </div>
 
-    <div class="form_section">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation %>
-    </div>
+      <div class="form_section">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation %>
+      </div>
+    <% end %>
 
     <% if current_user.is? :admin %>
       <div class="form_section">
@@ -68,15 +73,17 @@
       </div>
     <% end %>
 
-    <div class="form_section">
-      <%= f.check_box :receive_notifications %>
-      <%= f.label :receive_notifications, "Receive Notifications?" %>
-      <i>Pending invoice notifications are sent two days before the payment is due.</i>
-      <br />
-      <%= f.check_box :display_publicly %> 
-      <%= f.label :display_publicly, "Allow public access to your profile?" %>
-      <i>Public profiles can be seen by people and robots who are not logged in.</i>
-    </div>
+    <% if @user == current_user %>
+      <div class="form_section">
+        <%= f.check_box :receive_notifications %>
+        <%= f.label :receive_notifications, "Receive Notifications?" %>
+        <i>Pending invoice notifications are sent two days before the payment is due.</i>
+        <br />
+        <%= f.check_box :display_publicly %> 
+        <%= f.label :display_publicly, "Allow public access to your profile?" %>
+        <i>Public profiles can be seen by people and robots who are not logged in.</i>
+      </div>
+    <% end %>
   </div>
 
   <div class="span-24">
