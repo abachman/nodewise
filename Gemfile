@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', "3.1.10"
+gem 'linecache19'
 gem 'dynamic_form'
 gem 'pg'
 gem 'json'
@@ -15,13 +16,14 @@ gem 'role_model'
 gem 'transitions', :require => ["transitions", "active_record/transitions"]
 gem 'exception_notification', :git => 'git://github.com/rails/exception_notification.git', :require => "exception_notifier"
 gem 'omniauth', :git => 'git://github.com/intridea/omniauth.git'
+gem 'money'
 
 # generate dummy text
 gem 'faker'
 
 # To use debugger
 group :development do
-  gem 'ruby-debug'
+  # gem 'ruby-debug'
   gem 'hpricot'
   gem 'ruby_parser'
   gem 'heroku'
